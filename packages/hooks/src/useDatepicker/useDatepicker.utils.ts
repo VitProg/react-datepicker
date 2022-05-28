@@ -10,14 +10,22 @@ import startOfMonth from 'date-fns/startOfMonth'
 import addMonths from 'date-fns/addMonths'
 import format from 'date-fns/format'
 import addDays from 'date-fns/addDays'
+import compareAsc from 'date-fns/compareAsc'
 
 export const isInUnavailableDates = (unavailableDates: Date[] = [], date: Date) => {
   return unavailableDates.some(_date => isSameDay(date, _date))
 }
 
+export function isDateInInterval(date: Date, dateA: Date, dateB: Date) {
+  const interval =
+    compareAsc(dateA, dateB) > 0 ? {start: dateB, end: dateA} : {start: dateA, end: dateB}
+
+  return isWithinRange(date, interval)
+}
+
 export function isDateSelected(date: Date, startDate: Date | null, endDate: Date | null) {
   if (startDate && endDate) {
-    return isWithinRange(date, {start: startDate, end: endDate})
+    return isDateInInterval(date, startDate, endDate)
   }
 
   return false
@@ -31,21 +39,13 @@ export function isFirstOrLastSelectedDate(
   return !!((startDate && isSameDay(date, startDate)) || (endDate && isSameDay(date, endDate)))
 }
 
-export function isStartDate(
-  date: Date,
-  startDate: Date | null,
-) {
+export function isStartDate(date: Date, startDate: Date | null) {
   return !!(startDate && isSameDay(date, startDate))
 }
 
-export function isEndDate(
-  date: Date,
-  endDate: Date | null,
-) {
+export function isEndDate(date: Date, endDate: Date | null) {
   return !!(endDate && isSameDay(date, endDate))
 }
-
-
 
 interface IsDateBlockedProps {
   date: Date
@@ -95,7 +95,7 @@ export function isDateBlocked({
     (startDate &&
       !endDate &&
       minBookingDays > 1 &&
-      isWithinRange(date, {start: startDate, end: addDays(startDate, minBookingDays - 2)})) ||
+      isDateInInterval(date, startDate, addDays(startDate, minBookingDays - 2))) ||
     (isDateBlockedFn && isDateBlockedFn(date))
   )
 }
@@ -255,7 +255,7 @@ export function isDateHovered({
     hoveredDate &&
     minBookingDays > 1 &&
     exactMinBookingDays &&
-    isWithinRange(date, {start: hoveredDate, end: addDays(hoveredDate, minBookingDays - 1)})
+    isDateInInterval(date, hoveredDate, addDays(hoveredDate, minBookingDays - 1))
   ) {
     return !eachDay({start: hoveredDate, end: addDays(hoveredDate, minBookingDays - 1)}).some(d =>
       isDateBlocked(d),
@@ -265,7 +265,7 @@ export function isDateHovered({
     startDate &&
     !endDate &&
     hoveredDate &&
-    isWithinRange(date, {start: startDate, end: addDays(startDate, minBookingDays - 1)}) &&
+    isDateInInterval(date, startDate, addDays(startDate, minBookingDays - 1)) &&
     isSameDay(startDate, hoveredDate) &&
     minBookingDays > 1
   ) {
@@ -278,7 +278,7 @@ export function isDateHovered({
     !endDate &&
     hoveredDate &&
     !isBefore(hoveredDate, startDate) &&
-    isWithinRange(date, {start: startDate, end: hoveredDate})
+    isDateInInterval(date, startDate, hoveredDate)
   ) {
     return !eachDay({start: startDate, end: hoveredDate}).some(d => isDateBlocked(d))
   }

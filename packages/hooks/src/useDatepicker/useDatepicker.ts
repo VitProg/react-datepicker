@@ -2,7 +2,6 @@ import {useState, useEffect, useCallback} from 'react'
 import isBefore from 'date-fns/isBefore'
 import isAfter from 'date-fns/isAfter'
 import addDays from 'date-fns/addDays'
-import isWithinRange from 'date-fns/isWithinInterval'
 import isSameDay from 'date-fns/isSameDay'
 import isSameMonth from 'date-fns/isSameDay'
 import {
@@ -16,6 +15,7 @@ import {
   canSelectRange,
   isDateHovered as isDateHoveredFn,
   isInUnavailableDates,
+  isDateInInterval,
 } from './useDatepicker.utils'
 
 export const START_DATE = 'startDate'
@@ -276,7 +276,7 @@ export function useDatepicker({
       // Is start date hovered and in range
       const isMinBookingDaysInRange =
         minBookingDays > 1 && startDate
-          ? isWithinRange(date, {start: startDate, end: addDays(startDate, minBookingDays - 2)})
+          ? isDateInInterval(date, startDate, addDays(startDate, minBookingDays - 2))
           : true
       const isStartDateHoveredAndInRange =
         startDate && isSameDay(date, startDate) && isMinBookingDaysInRange

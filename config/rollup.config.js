@@ -16,13 +16,13 @@ export function rollup({packageJsonPath, input = './src/index.ts'}) {
         file: 'lib/index.cjs.js',
         format: 'cjs',
         exports: 'named',
-        sourcemap: false,
+        sourcemap: true,
       },
       {
         file: 'lib/index.esm.js',
         format: 'es',
         exports: 'named',
-        sourcemap: false,
+        sourcemap: true,
       },
     ],
     plugins: [

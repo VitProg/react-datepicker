@@ -2244,27 +2244,18 @@ function ue(t, e) {
     r = l(e)
   return n.getTime() > r.getTime()
 }
-function se(t, e) {
-  d(2, arguments)
-  var n = e || {},
-    r = l(t).getTime(),
-    a = l(n.start).getTime(),
-    i = l(n.end).getTime()
-  if (!(a <= i)) throw new RangeError('Invalid interval')
-  return r >= a && r <= i
-}
-function ce(t) {
+function se(t) {
   d(1, arguments)
   var e = l(t)
   return e.setHours(0, 0, 0, 0), e
 }
-function de(t, e) {
+function ce(t, e) {
   d(2, arguments)
-  var n = ce(t),
-    r = ce(e)
+  var n = se(t),
+    r = se(e)
   return n.getTime() === r.getTime()
 }
-function le(t, e) {
+function de(t, e) {
   d(2, arguments)
   var n = l(t),
     r = c(e)
@@ -2276,25 +2267,47 @@ function le(t, e) {
   var o = i.getDate()
   return a >= o ? i : (n.setFullYear(i.getFullYear(), i.getMonth(), a), n)
 }
-var fe = function (t, e) {
+var le = function (t, e) {
   return (
     void 0 === t && (t = []),
     t.some(function (t) {
-      return de(e, t)
+      return ce(e, t)
     })
   )
 }
+function fe(t, e, n) {
+  return (function (t, e) {
+    d(2, arguments)
+    var n = e || {},
+      r = l(t).getTime(),
+      a = l(n.start).getTime(),
+      i = l(n.end).getTime()
+    if (!(a <= i)) throw new RangeError('Invalid interval')
+    return r >= a && r <= i
+  })(
+    t,
+    (function (t, e) {
+      d(2, arguments)
+      var n = l(t),
+        r = l(e),
+        a = n.getTime() - r.getTime()
+      return a < 0 ? -1 : a > 0 ? 1 : a
+    })(e, n) > 0
+      ? {start: n, end: e}
+      : {start: e, end: n},
+  )
+}
 function he(t, e, n) {
-  return !(!e || !n) && se(t, {start: e, end: n})
+  return !(!e || !n) && fe(t, e, n)
 }
 function me(t, e, n) {
-  return !!((e && de(t, e)) || (n && de(t, n)))
+  return !!((e && ce(t, e)) || (n && ce(t, n)))
 }
 function we(t, e) {
-  return !(!e || !de(t, e))
+  return !(!e || !ce(t, e))
 }
 function ge(t, e) {
-  return !(!e || !de(t, e))
+  return !(!e || !ce(t, e))
 }
 function ve(t) {
   var e = t.date,
@@ -2310,10 +2323,10 @@ function ve(t) {
     l = n ? new Date(n.getFullYear(), n.getMonth(), n.getDate(), 0, 0, 0) : n,
     f = r ? new Date(r.getFullYear(), r.getMonth(), r.getDate(), 0, 0, 0) : r
   return !!(
-    fe(d, e) ||
+    le(d, e) ||
     (l && oe(e, l)) ||
     (f && ue(e, f)) ||
-    (i && !o && s > 1 && se(e, {start: i, end: Jt(i, s - 2)})) ||
+    (i && !o && s > 1 && fe(e, i, Jt(i, s - 2))) ||
     (a && a(e))
   )
 }
@@ -2336,7 +2349,7 @@ function ye(t) {
   }
 }
 function be() {
-  return ye(ce(Date.now()))
+  return ye(se(Date.now()))
 }
 function pe(t, e) {
   var n = e ? ye(e) : be(),
@@ -2345,7 +2358,7 @@ function pe(t, e) {
   return (
     t > 1 &&
       (a = Array.from(Array(t - 1).keys()).reduce(function (t) {
-        return (r = le(t[t.length - 1].date, 1)), t.concat([ye(r)])
+        return (r = de(t[t.length - 1].date, 1)), t.concat([ye(r)])
       }, a)),
     a
   )
@@ -2354,7 +2367,7 @@ function De(t, e, n, r) {
   var a = t[r ? (n > 0 ? 0 : t.length - r) : n > 0 ? t.length - 1 : 0].date
   return Array.from(Array(e).keys()).reduce(function (t) {
     return (
-      (a = 0 === t.length ? le(a, n) : le(a, n >= 0 ? 1 : -1)),
+      (a = 0 === t.length ? de(a, n) : de(a, n >= 0 ? 1 : -1)),
       n > 0 ? t.concat([ye(a)]) : [ye(a)].concat(t)
     )
   }, [])
@@ -2558,10 +2571,10 @@ function Te(t) {
       )
     })
     var N = function (t) {
-        return fe(p, t) || y(t)
+        return le(p, t) || y(t)
       },
       q = function (t) {
-        Y(t), (!P || (P && !de(t, P))) && C(pe(m, t))
+        Y(t), (!P || (P && !ce(t, P))) && C(pe(m, t))
       },
       O = function (t) {
         return ve({
@@ -2643,15 +2656,15 @@ function Te(t) {
             i = t.hoveredDate,
             o = t.minBookingDays,
             u = t.exactMinBookingDays
-          return i && o > 1 && u && se(e, {start: i, end: Jt(i, o - 1)})
+          return i && o > 1 && u && fe(e, i, Jt(i, o - 1))
             ? !Zt({start: i, end: Jt(i, o - 1)}).some(function (t) {
                 return a(t)
               })
-            : n && !r && i && se(e, {start: n, end: Jt(n, o - 1)}) && de(n, i) && o > 1
+            : n && !r && i && fe(e, n, Jt(n, o - 1)) && ce(n, i) && o > 1
             ? !Zt({start: n, end: Jt(n, o - 1)}).some(function (t) {
                 return a(t)
               })
-            : !(!n || r || !i || oe(i, n) || !se(e, {start: n, end: i})) &&
+            : !(!n || r || !i || oe(i, n) || !fe(e, n, i)) &&
               !Zt({start: n, end: i}).some(function (t) {
                 return a(t)
               })
@@ -2677,7 +2690,7 @@ function Te(t) {
       isDateBlocked: O,
       numberOfMonths: m,
       isDateFocused: function (t) {
-        return !!P && de(t, P)
+        return !!P && ce(t, P)
       },
       focusedDate: P,
       hoveredDate: U,
@@ -2687,7 +2700,7 @@ function Te(t) {
       onDateHover: function (t) {
         if (t) {
           if (t) {
-            var e = !O(t) || (n && de(t, n)),
+            var e = !O(t) || (n && ce(t, n)),
               a = !i || !oe(t, Jt(i, -1)),
               u = !o || !ue(t, o),
               s = Jt(t, f - 1),
@@ -2695,8 +2708,8 @@ function Te(t) {
               l = !o || !ue(s, o),
               h = d && f > 1 && a && u && c && l,
               m = n && !r && !d && a && u,
-              w = !(f > 1 && n) || se(t, {start: n, end: Jt(n, f - 2)}),
-              g = n && de(t, n) && w
+              w = !(f > 1 && n) || fe(t, n, Jt(n, f - 2)),
+              g = n && ce(t, n) && w
             e && (h || m || g) ? S(t) : null !== U && S(null)
           }
         } else S(null)
@@ -2733,7 +2746,7 @@ function Te(t) {
             !d &&
             Te({minBookingDays: f, isDateBlocked: N, startDate: n, endDate: t}) &&
             u({startDate: n, endDate: t, focusedInput: null}),
-          'endDate' !== a && (!P || (P && !de(t, P))) && T && C(pe(m, t))
+          'endDate' !== a && (!P || (P && !ce(t, P))) && T && C(pe(m, t))
       },
       onDateFocus: q,
       goToPreviousMonths: H,
@@ -2816,3 +2829,4 @@ function Te(t) {
     }
   }),
   (exports.weekdayLabelFormat = ae)
+//# sourceMappingURL=index.cjs.js.map

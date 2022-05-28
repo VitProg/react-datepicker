@@ -2,6 +2,7 @@ export declare const isInUnavailableDates: (
   unavailableDates: Date[] | undefined,
   date: Date,
 ) => boolean
+export declare function isDateInInterval(date: Date, dateA: Date, dateB: Date): boolean
 export declare function isDateSelected(
   date: Date,
   startDate: Date | null,
