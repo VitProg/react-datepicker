@@ -40,7 +40,7 @@ export function rollup({packageJsonPath, input = './src/index.ts'}) {
         rollupCommonJSResolveHack: true,
         clean: true,
       }),
-      terser(),
+      // terser(),
       // visualizer(),
     ],
   }
