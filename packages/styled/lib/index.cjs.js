@@ -2,7 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', {value: true})
 
-var react = require('react')
+function _interopDefault(ex) {
+  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex
+}
+
+var React = require('react')
+var React__default = _interopDefault(React)
+var styled = require('styled-components')
+var styled__default = _interopDefault(styled)
 
 var formatDistanceLocale = {
   lessThanXSeconds: {
@@ -67,6 +74,7 @@ var formatDistanceLocale = {
     other: 'almost {{count}} years',
   },
 }
+
 function formatDistance(token, count, options) {
   options = options || {}
   var result
@@ -131,7 +139,6 @@ var formatLong = {
     defaultWidth: 'full',
   }),
 }
-
 var formatRelativeLocale = {
   lastWeek: "'last' eeee 'at' p",
   yesterday: "'yesterday at' p",
@@ -140,6 +147,7 @@ var formatRelativeLocale = {
   nextWeek: "eeee 'at' p",
   other: 'P',
 }
+
 function formatRelative(token, _date, _baseDate, _options) {
   return formatRelativeLocale[token]
 }
@@ -514,7 +522,6 @@ var match = {
     defaultParseWidth: 'any',
   }),
 }
-
 /**
  * @type {Locale}
  * @category Locales
@@ -565,7 +572,6 @@ function requiredArgs(required, args) {
     )
   }
 }
-
 /**
  * @name toDate
  * @category Common Helpers
@@ -622,7 +628,6 @@ function toDate(argument) {
     return new Date(NaN)
   }
 }
-
 /**
  * @name addMilliseconds
  * @category Millisecond Helpers
@@ -652,7 +657,6 @@ function addMilliseconds(dirtyDate, dirtyAmount) {
   var amount = toInteger(dirtyAmount)
   return new Date(timestamp + amount)
 }
-
 /**
  * @name subMilliseconds
  * @category Millisecond Helpers
@@ -795,7 +799,6 @@ var longFormatters = {
   p: timeLongFormatter,
   P: dateTimeLongFormatter,
 }
-
 var MILLISECONDS_IN_MINUTE = 60000
 
 function getDateMillisecondsPart(date) {
@@ -826,12 +829,15 @@ function getTimezoneOffsetInMilliseconds(dirtyDate) {
 
 var protectedDayOfYearTokens = ['D', 'DD']
 var protectedWeekYearTokens = ['YY', 'YYYY']
+
 function isProtectedDayOfYearToken(token) {
   return protectedDayOfYearTokens.indexOf(token) !== -1
 }
+
 function isProtectedWeekYearToken(token) {
   return protectedWeekYearTokens.indexOf(token) !== -1
 }
+
 function throwProtectedError(token) {
   if (token === 'YYYY') {
     throw new RangeError(
@@ -848,9 +854,7 @@ function throwProtectedError(token) {
       'Use `dd` instead of `DD` for formatting days of the month; see: https://git.io/fxCyr',
     )
   }
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function startOfUTCWeek(dirtyDate, dirtyOptions) {
   requiredArgs(1, arguments)
@@ -871,9 +875,7 @@ function startOfUTCWeek(dirtyDate, dirtyOptions) {
   date.setUTCDate(date.getUTCDate() - diff)
   date.setUTCHours(0, 0, 0, 0)
   return date
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function getUTCWeekYear(dirtyDate, dirtyOptions) {
   requiredArgs(1, arguments)
@@ -909,9 +911,7 @@ function getUTCWeekYear(dirtyDate, dirtyOptions) {
   } else {
     return year - 1
   }
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function setUTCDay(dirtyDate, dirtyDay, dirtyOptions) {
   requiredArgs(2, arguments)
@@ -934,9 +934,7 @@ function setUTCDay(dirtyDate, dirtyDay, dirtyOptions) {
   var diff = (dayIndex < weekStartsOn ? 7 : 0) + day - currentDay
   date.setUTCDate(date.getUTCDate() + diff)
   return date
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function setUTCISODay(dirtyDate, dirtyDay) {
   requiredArgs(2, arguments)
@@ -954,9 +952,7 @@ function setUTCISODay(dirtyDate, dirtyDay) {
   var diff = (dayIndex < weekStartsOn ? 7 : 0) + day - currentDay
   date.setUTCDate(date.getUTCDate() + diff)
   return date
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function startOfUTCISOWeek(dirtyDate) {
   requiredArgs(1, arguments)
@@ -967,9 +963,7 @@ function startOfUTCISOWeek(dirtyDate) {
   date.setUTCDate(date.getUTCDate() - diff)
   date.setUTCHours(0, 0, 0, 0)
   return date
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function getUTCISOWeekYear(dirtyDate) {
   requiredArgs(1, arguments)
@@ -991,9 +985,7 @@ function getUTCISOWeekYear(dirtyDate) {
   } else {
     return year - 1
   }
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function startOfUTCISOWeekYear(dirtyDate) {
   requiredArgs(1, arguments)
@@ -1016,9 +1008,7 @@ function getUTCISOWeek(dirtyDate) {
   // (e.g. it's different in the week of the daylight saving time clock shift)
 
   return Math.round(diff / MILLISECONDS_IN_WEEK) + 1
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function setUTCISOWeek(dirtyDate, dirtyISOWeek) {
   requiredArgs(2, arguments)
@@ -1027,9 +1017,7 @@ function setUTCISOWeek(dirtyDate, dirtyISOWeek) {
   var diff = getUTCISOWeek(date) - isoWeek
   date.setUTCDate(date.getUTCDate() - diff * 7)
   return date
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function startOfUTCWeekYear(dirtyDate, dirtyOptions) {
   requiredArgs(1, arguments)
@@ -1061,9 +1049,7 @@ function getUTCWeek(dirtyDate, options) {
   // (e.g. it's different in the week of the daylight saving time clock shift)
 
   return Math.round(diff / MILLISECONDS_IN_WEEK$1) + 1
-}
-
-// See issue: https://github.com/date-fns/date-fns/issues/376
+} // See issue: https://github.com/date-fns/date-fns/issues/376
 
 function setUTCWeek(dirtyDate, dirtyWeek, options) {
   requiredArgs(2, arguments)
@@ -2678,7 +2664,6 @@ var parsers = {
     incompatibleTokens: '*',
   },
 }
-
 var TIMEZONE_UNIT_PRIORITY = 10 // This RegExp consists of three parts separated by `|`:
 // - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
 //   (one of the certain letters followed by `o`)
@@ -3244,7 +3229,6 @@ function dateToSystemTimezone(date, flags) {
 function cleanEscapedString(input) {
   return input.match(escapedStringRegExp)[1].replace(doubleQuoteRegExp, "'")
 }
-
 /**
  * @name isValid
  * @category Common Helpers
@@ -3319,7 +3303,6 @@ function addLeadingZeros(number, targetLength) {
 
   return sign + output
 }
-
 /*
  * |     | Unit                           |     | Unit                           |
  * |-----|--------------------------------|-----|--------------------------------|
@@ -3400,7 +3383,6 @@ var formatters = {
     return addLeadingZeros(fractionalSeconds, token.length)
   },
 }
-
 var MILLISECONDS_IN_DAY = 86400000 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
 
@@ -4258,9 +4240,7 @@ function formatTimezone(offset, dirtyDelimiter) {
   var hours = addLeadingZeros(Math.floor(absOffset / 60), 2)
   var minutes = addLeadingZeros(absOffset % 60, 2)
   return sign + hours + delimiter + minutes
-}
-
-// - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
+} // - [yYQqMLwIdDecihHKkms]o matches any available ordinal number token
 //   (one of the certain letters followed by `o`)
 // - (\w)\1* matches any sequences of the same letter
 // - '' matches two quote characters in a row
@@ -4693,7 +4673,6 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
 function cleanEscapedString$1(input) {
   return input.match(escapedStringRegExp$1)[1].replace(doubleQuoteRegExp$1, "'")
 }
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -4708,6 +4687,7 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
+
 function __spreadArrays() {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length
 
@@ -4716,7 +4696,6 @@ function __spreadArrays() {
 
   return r
 }
-
 /**
  * @name addDays
  * @category Day Helpers
@@ -4757,7 +4736,6 @@ function addDays(dirtyDate, dirtyAmount) {
   date.setDate(date.getDate() + amount)
   return date
 }
-
 /**
  * @name eachDayOfInterval
  * @category Interval Helpers
@@ -4846,7 +4824,6 @@ function eachDayOfInterval(dirtyInterval, options) {
 
   return dates
 }
-
 /**
  * @name endOfMonth
  * @category Month Helpers
@@ -4878,7 +4855,6 @@ function endOfMonth(dirtyDate) {
   date.setHours(23, 59, 59, 999)
   return date
 }
-
 /**
  * @name endOfWeek
  * @category Week Helpers
@@ -4931,7 +4907,6 @@ function endOfWeek(dirtyDate, dirtyOptions) {
   date.setHours(23, 59, 59, 999)
   return date
 }
-
 /**
  * @name getDay
  * @category Weekday Helpers
@@ -4960,7 +4935,6 @@ function getDay(dirtyDate) {
   var day = date.getDay()
   return day
 }
-
 /**
  * @name startOfMonth
  * @category Month Helpers
@@ -4991,7 +4965,6 @@ function startOfMonth(dirtyDate) {
   date.setHours(0, 0, 0, 0)
   return date
 }
-
 /**
  * @name startOfWeek
  * @category Week Helpers
@@ -5044,7 +5017,6 @@ function startOfWeek(dirtyDate, dirtyOptions) {
   date.setHours(0, 0, 0, 0)
   return date
 }
-
 /**
  * @name isWithinInterval
  * @category Interval Helpers
@@ -5132,7 +5104,6 @@ function isWithinInterval(dirtyDate, dirtyInterval) {
 
   return time >= startTime && time <= endTime
 }
-
 /**
  * @name startOfDay
  * @category Day Helpers
@@ -5162,7 +5133,6 @@ function startOfDay(dirtyDate) {
   date.setHours(0, 0, 0, 0)
   return date
 }
-
 /**
  * @name isSameDay
  * @category Day Helpers
@@ -5192,7 +5162,6 @@ function isSameDay(dirtyDateLeft, dirtyDateRight) {
   var dateRightStartOfDay = startOfDay(dirtyDateRight)
   return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime()
 }
-
 /**
  * @name isBefore
  * @category Common Helpers
@@ -5222,7 +5191,6 @@ function isBefore(dirtyDate, dirtyDateToCompare) {
   var dateToCompare = toDate(dirtyDateToCompare)
   return date.getTime() < dateToCompare.getTime()
 }
-
 /**
  * @name isAfter
  * @category Common Helpers
@@ -5252,7 +5220,6 @@ function isAfter(dirtyDate, dirtyDateToCompare) {
   var dateToCompare = toDate(dirtyDateToCompare)
   return date.getTime() > dateToCompare.getTime()
 }
-
 /**
  * @name getYear
  * @category Year Helpers
@@ -5281,7 +5248,6 @@ function getYear(dirtyDate) {
   var year = date.getFullYear()
   return year
 }
-
 /**
  * @name getMonth
  * @category Month Helpers
@@ -5310,7 +5276,6 @@ function getMonth(dirtyDate) {
   var month = date.getMonth()
   return month
 }
-
 /**
  * @name startOfToday
  * @category Day Helpers
@@ -5338,7 +5303,6 @@ function getMonth(dirtyDate) {
 function startOfToday() {
   return startOfDay(Date.now())
 }
-
 /**
  * @name addMonths
  * @category Month Helpers
@@ -5405,7 +5369,6 @@ function addMonths(dirtyDate, dirtyAmount) {
     return date
   }
 }
-
 /**
  * @name compareAsc
  * @category Common Helpers
@@ -5462,31 +5425,48 @@ var isInUnavailableDates = function (unavailableDates, date) {
   if (unavailableDates === void 0) {
     unavailableDates = []
   }
+
   return unavailableDates.some(function (_date) {
     return isSameDay(date, _date)
   })
 }
+
 function getDateInterval(dateA, dateB) {
-  return compareAsc(dateA, dateB) > 0 ? {start: dateB, end: dateA} : {start: dateA, end: dateB}
+  return compareAsc(dateA, dateB) > 0
+    ? {
+        start: dateB,
+        end: dateA,
+      }
+    : {
+        start: dateA,
+        end: dateB,
+      }
 }
+
 function isDateInInterval(date, dateA, dateB) {
   return isWithinInterval(date, getDateInterval(dateA, dateB))
 }
+
 function isDateSelected(date, startDate, endDate) {
   if (startDate && endDate) {
     return isDateInInterval(date, startDate, endDate)
   }
+
   return false
 }
+
 function isFirstOrLastSelectedDate(date, startDate, endDate) {
   return !!((startDate && isSameDay(date, startDate)) || (endDate && isSameDay(date, endDate)))
 }
+
 function isStartDate(date, startDate) {
   return !!(startDate && isSameDay(date, startDate))
 }
+
 function isEndDate(date, endDate) {
   return !!(endDate && isSameDay(date, endDate))
 }
+
 function isDateBlocked(_a) {
   var date = _a.date,
     minBookingDate = _a.minBookingDate,
@@ -5529,6 +5509,7 @@ function isDateBlocked(_a) {
     (isDateBlockedFn && isDateBlockedFn(date))
   )
 }
+
 function getDateMonthAndYear(date) {
   var today = startOfMonth(date)
   var year = getYear(today)
@@ -5539,28 +5520,35 @@ function getDateMonthAndYear(date) {
     date: today,
   }
 }
+
 function getCurrentYearMonthAndDate() {
   return getDateMonthAndYear(startOfToday())
 }
+
 function getInitialMonths(numberOfMonths, startDate) {
   var firstMonth = startDate ? getDateMonthAndYear(startDate) : getCurrentYearMonthAndDate()
   var prevMonthDate = firstMonth.date
   var months = [firstMonth]
+
   if (numberOfMonths > 1) {
     months = Array.from(Array(numberOfMonths - 1).keys()).reduce(function (m) {
       prevMonthDate = addMonths(m[m.length - 1].date, 1)
       return m.concat([getDateMonthAndYear(prevMonthDate)])
     }, months)
   }
+
   return months
 }
+
 function getNextActiveMonth(activeMonth, numberOfMonths, counter, step) {
   var prevMonth
+
   if (step) {
     prevMonth = counter > 0 ? 0 : activeMonth.length - step
   } else {
     prevMonth = counter > 0 ? activeMonth.length - 1 : 0
   }
+
   var prevMonthDate = activeMonth[prevMonth].date
   return Array.from(Array(numberOfMonths).keys()).reduce(function (m) {
     if (m.length === 0) {
@@ -5568,11 +5556,13 @@ function getNextActiveMonth(activeMonth, numberOfMonths, counter, step) {
     } else {
       prevMonthDate = addMonths(prevMonthDate, counter >= 0 ? 1 : -1)
     }
+
     return counter > 0
       ? m.concat([getDateMonthAndYear(prevMonthDate)])
       : [getDateMonthAndYear(prevMonthDate)].concat(m)
   }, [])
 }
+
 function getInputValue(date, displayFormat, defaultValue) {
   if (date && typeof displayFormat === 'string') {
     return format(date, displayFormat)
@@ -5582,6 +5572,7 @@ function getInputValue(date, displayFormat, defaultValue) {
     return defaultValue
   }
 }
+
 function canSelectRange(_a) {
   var startDate = _a.startDate,
     endDate = _a.endDate,
@@ -5596,6 +5587,7 @@ function canSelectRange(_a) {
   var isStartDateBeforeOrEqualMaxDate = maxBookingDate
     ? !isAfter(addDays(startDate, minBookingDays - 1), maxBookingDate)
     : true
+
   if (startDate && minBookingDays === 1 && !endDate && !isDateBlocked(startDate)) {
     return true
   } else if (
@@ -5614,15 +5606,19 @@ function canSelectRange(_a) {
     })
   } else if (startDate && endDate && !exactMinBookingDays) {
     var minBookingDaysDate = addDays(startDate, minBookingDays - 1)
+
     if (isBefore(endDate, minBookingDaysDate)) {
       return false
     }
+
     return !eachDayOfInterval(getDateInterval(startDate, endDate)).some(function (d) {
       return isDateBlocked(d)
     })
   }
+
   return false
 }
+
 function isDateHovered(_a) {
   var date = _a.date,
     startDate = _a.startDate,
@@ -5631,6 +5627,7 @@ function isDateHovered(_a) {
     hoveredDate = _a.hoveredDate,
     minBookingDays = _a.minBookingDays,
     exactMinBookingDays = _a.exactMinBookingDays
+
   if (
     // exact min booking days
     hoveredDate &&
@@ -5668,6 +5665,7 @@ function isDateHovered(_a) {
       return isDateBlocked(d)
     })
   }
+
   return false
 }
 
@@ -5682,6 +5680,7 @@ function getWeekdayLabels(_a) {
             return format(date, 'iiiiii')
           }
         : _d
+
   var now = new Date()
   var arr = eachDayOfInterval(
     getDateInterval(
@@ -5695,6 +5694,7 @@ function getWeekdayLabels(_a) {
     return array
   }, [])
 }
+
 function getDays(_a) {
   var year = _a.year,
     month = _a.month,
@@ -5730,12 +5730,15 @@ function getDays(_a) {
 var dayLabelFormatFn = function (date) {
   return format(date, 'dd')
 }
+
 var weekdayLabelFormatFn = function (date) {
   return format(date, 'eeeeee')
 }
+
 var monthLabelFormatFn = function (date) {
   return format(date, 'MMMM yyyy')
 }
+
 function useMonth(_a) {
   var year = _a.year,
     month = _a.month,
@@ -5747,7 +5750,7 @@ function useMonth(_a) {
     weekdayLabelFormat = _d === void 0 ? weekdayLabelFormatFn : _d,
     _e = _a.monthLabelFormat,
     monthLabelFormat = _e === void 0 ? monthLabelFormatFn : _e
-  var days = react.useMemo(
+  var days = React.useMemo(
     function () {
       return getDays({
         year: year,
@@ -5758,7 +5761,7 @@ function useMonth(_a) {
     },
     [year, month, firstDayOfWeek, dayLabelFormat],
   )
-  var weekdayLabels = react.useMemo(
+  var weekdayLabels = React.useMemo(
     function () {
       return getWeekdayLabels({
         firstDayOfWeek: firstDayOfWeek,
@@ -5776,6 +5779,7 @@ function useMonth(_a) {
 
 var START_DATE = 'startDate'
 var END_DATE = 'endDate'
+
 function useDatepicker(_a) {
   var startDate = _a.startDate,
     endDate = _a.endDate,
@@ -5803,52 +5807,65 @@ function useDatepicker(_a) {
     unavailableDates = _g === void 0 ? [] : _g,
     _h = _a.changeActiveMonthOnSelect,
     changeActiveMonthOnSelect = _h === void 0 ? true : _h
-  var _j = react.useState(function () {
+
+  var _j = React.useState(function () {
       return startDate
         ? getInitialMonths(numberOfMonths, startDate)
         : getInitialMonths(numberOfMonths, initialVisibleMonth || null)
     }),
     activeMonths = _j[0],
     setActiveMonths = _j[1]
-  var _k = react.useState(null),
+
+  var _k = React.useState(null),
     hoveredDate = _k[0],
     setHoveredDate = _k[1]
-  var _l = react.useState(startDate),
+
+  var _l = React.useState(startDate),
     focusedDate = _l[0],
     setFocusedDate = _l[1]
-  react.useEffect(function () {
+
+  React.useEffect(function () {
     if (typeof window !== 'undefined') {
       if (window.addEventListener) {
         window.addEventListener('keydown', handleKeyDown)
       }
     }
+
     return function () {
       if (window.removeEventListener) {
         window.removeEventListener('keydown', handleKeyDown)
       }
     }
   })
+
   var disabledDatesByUser = function (date) {
     return isInUnavailableDates(unavailableDates, date) || isDateBlockedProps(date)
   }
+
   var onDateFocus = function (date) {
     setFocusedDate(date)
+
     if (!focusedDate || (focusedDate && !isSameDay(date, focusedDate))) {
       setActiveMonths(getInitialMonths(numberOfMonths, date))
     }
   }
+
   var isDateSelected$1 = function (date) {
     return isDateSelected(date, startDate, endDate)
   }
+
   var isFirstOrLastSelectedDate$1 = function (date) {
     return isFirstOrLastSelectedDate(date, startDate, endDate)
   }
+
   var isStartDate$1 = function (date) {
     return isStartDate(date, startDate)
   }
+
   var isEndDate$1 = function (date) {
     return isEndDate(date, endDate)
   }
+
   var isDateBlocked$1 = function (date) {
     return isDateBlocked({
       date: date,
@@ -5860,9 +5877,11 @@ function useDatepicker(_a) {
       isDateBlockedFn: disabledDatesByUser,
     })
   }
+
   var isDateFocused = function (date) {
     return focusedDate ? isSameDay(date, focusedDate) : false
   }
+
   var isDateHovered$1 = function (date) {
     return isDateHovered({
       date: date,
@@ -5874,6 +5893,7 @@ function useDatepicker(_a) {
       isDateBlocked: disabledDatesByUser,
     })
   }
+
   function handleKeyDown(e) {
     if (
       (e.key === 'ArrowRight' ||
@@ -5887,6 +5907,7 @@ function useDatepicker(_a) {
       setActiveMonths(getInitialMonths(numberOfMonths, activeMonth.date))
     }
   }
+
   function onResetDates() {
     onDatesChange({
       startDate: null,
@@ -5894,6 +5915,7 @@ function useDatepicker(_a) {
       focusedInput: START_DATE,
     })
   }
+
   function onDateSelect(date) {
     if (
       (focusedInput === END_DATE || focusedInput === START_DATE) &&
@@ -5978,6 +6000,7 @@ function useDatepicker(_a) {
         focusedInput: null,
       })
     }
+
     if (
       focusedInput !== END_DATE &&
       (!focusedDate || (focusedDate && !isSameDay(date, focusedDate))) &&
@@ -5986,6 +6009,7 @@ function useDatepicker(_a) {
       setActiveMonths(getInitialMonths(numberOfMonths, date))
     }
   }
+
   function onDateHover(date) {
     if (!date) {
       setHoveredDate(null)
@@ -5994,8 +6018,8 @@ function useDatepicker(_a) {
       var isHoveredDateAfterOrEqualMinDate = minBookingDate
         ? !isBefore(date, addDays(minBookingDate, -1))
         : true
-      var isHoveredDateBeforeOrEqualMaxDate = maxBookingDate ? !isAfter(date, maxBookingDate) : true
-      // Exact minimal booking days
+      var isHoveredDateBeforeOrEqualMaxDate = maxBookingDate ? !isAfter(date, maxBookingDate) : true // Exact minimal booking days
+
       var potentialEndDate = addDays(date, minBookingDays - 1)
       var isPotentialEndDateAfterOrEqualMinDate = minBookingDate
         ? !isBefore(potentialEndDate, minBookingDate)
@@ -6009,21 +6033,22 @@ function useDatepicker(_a) {
         isHoveredDateAfterOrEqualMinDate &&
         isHoveredDateBeforeOrEqualMaxDate &&
         isPotentialEndDateAfterOrEqualMinDate &&
-        isPotentialEndDateBeforeOrEqualMaxDate
-      // Is date in range
+        isPotentialEndDateBeforeOrEqualMaxDate // Is date in range
+
       var isInRange =
         startDate &&
         !endDate &&
         !exactMinBookingDays &&
         isHoveredDateAfterOrEqualMinDate &&
-        isHoveredDateBeforeOrEqualMaxDate
-      // Is start date hovered and in range
+        isHoveredDateBeforeOrEqualMaxDate // Is start date hovered and in range
+
       var isMinBookingDaysInRange =
         minBookingDays > 1 && startDate
           ? isDateInInterval(date, startDate, addDays(startDate, minBookingDays - 2))
           : true
       var isStartDateHoveredAndInRange =
         startDate && isSameDay(date, startDate) && isMinBookingDaysInRange
+
       if (isNotBlocked && (isExactAndInRange || isInRange || isStartDateHoveredAndInRange)) {
         setHoveredDate(date)
       } else if (hoveredDate !== null) {
@@ -6031,46 +6056,48 @@ function useDatepicker(_a) {
       }
     }
   }
-  var goToPreviousMonths = react.useCallback(
+
+  var goToPreviousMonths = React.useCallback(
     function () {
       setActiveMonths(getNextActiveMonth(activeMonths, numberOfMonths, -1))
       setFocusedDate(null)
     },
     [activeMonths, numberOfMonths],
   )
-  var goToPreviousMonthsByOneMonth = react.useCallback(
+  var goToPreviousMonthsByOneMonth = React.useCallback(
     function () {
       setActiveMonths(getNextActiveMonth(activeMonths, numberOfMonths, -1, 1))
       setFocusedDate(null)
     },
     [activeMonths, numberOfMonths],
   )
-  var goToNextMonths = react.useCallback(
+  var goToNextMonths = React.useCallback(
     function () {
       setActiveMonths(getNextActiveMonth(activeMonths, numberOfMonths, 1))
       setFocusedDate(null)
     },
     [activeMonths, numberOfMonths],
   )
-  var goToNextMonthsByOneMonth = react.useCallback(
+  var goToNextMonthsByOneMonth = React.useCallback(
     function () {
       setActiveMonths(getNextActiveMonth(activeMonths, numberOfMonths, 1, 1))
       setFocusedDate(null)
     },
     [activeMonths, numberOfMonths],
   )
-  var goToDate = react.useCallback(
+  var goToDate = React.useCallback(
     function (date) {
       setActiveMonths(getInitialMonths(numberOfMonths, date))
       setFocusedDate(null)
     },
     [numberOfMonths],
   )
-  var goToPreviousYear = react.useCallback(
+  var goToPreviousYear = React.useCallback(
     function (numYears) {
       if (numYears === void 0) {
         numYears = 1
       }
+
       setActiveMonths(
         getNextActiveMonth(activeMonths, numberOfMonths, -(numYears * 12 - numberOfMonths + 1)),
       )
@@ -6078,11 +6105,12 @@ function useDatepicker(_a) {
     },
     [activeMonths, numberOfMonths],
   )
-  var goToNextYear = react.useCallback(
+  var goToNextYear = React.useCallback(
     function (numYears) {
       if (numYears === void 0) {
         numYears = 1
       }
+
       setActiveMonths(
         getNextActiveMonth(activeMonths, numberOfMonths, numYears * 12 - numberOfMonths + 1),
       )
@@ -6128,13 +6156,13 @@ function useDay(_a) {
     onDateSelect = _a.onDateSelect,
     onDateFocus = _a.onDateFocus,
     onDateHover = _a.onDateHover
-  var onClick = react.useCallback(
+  var onClick = React.useCallback(
     function () {
       return onDateSelect(date)
     },
     [date, onDateSelect],
   )
-  var onMouseEnter = react.useCallback(
+  var onMouseEnter = React.useCallback(
     function () {
       return onDateHover(date)
     },
@@ -6163,24 +6191,3456 @@ function useDay(_a) {
   }
 }
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+var __assign = function () {
+  __assign =
+    Object.assign ||
+    function __assign(t) {
+      for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i]
+
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p]
+      }
+
+      return t
+    }
+
+  return __assign.apply(this, arguments)
+}
+function __makeTemplateObject(cooked, raw) {
+  if (Object.defineProperty) {
+    Object.defineProperty(cooked, 'raw', {
+      value: raw,
+    })
+  } else {
+    cooked.raw = raw
+  }
+
+  return cooked
+}
+
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+/* eslint-disable no-unused-vars */
+
+var getOwnPropertySymbols = Object.getOwnPropertySymbols
+var hasOwnProperty = Object.prototype.hasOwnProperty
+var propIsEnumerable = Object.prototype.propertyIsEnumerable
+
+function toObject(val) {
+  if (val === null || val === undefined) {
+    throw new TypeError('Object.assign cannot be called with null or undefined')
+  }
+
+  return Object(val)
+}
+
+function shouldUseNative() {
+  try {
+    if (!Object.assign) {
+      return false
+    } // Detect buggy property enumeration order in older V8 versions.
+    // https://bugs.chromium.org/p/v8/issues/detail?id=4118
+
+    var test1 = new String('abc') // eslint-disable-line no-new-wrappers
+
+    test1[5] = 'de'
+
+    if (Object.getOwnPropertyNames(test1)[0] === '5') {
+      return false
+    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+
+    var test2 = {}
+
+    for (var i = 0; i < 10; i++) {
+      test2['_' + String.fromCharCode(i)] = i
+    }
+
+    var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+      return test2[n]
+    })
+
+    if (order2.join('') !== '0123456789') {
+      return false
+    } // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+
+    var test3 = {}
+    'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+      test3[letter] = letter
+    })
+
+    if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
+      return false
+    }
+
+    return true
+  } catch (err) {
+    // We don't expect any of the above to throw, but better to be safe.
+    return false
+  }
+}
+
+var objectAssign = shouldUseNative()
+  ? Object.assign
+  : function (target, source) {
+      var from
+      var to = toObject(target)
+      var symbols
+
+      for (var s = 1; s < arguments.length; s++) {
+        from = Object(arguments[s])
+
+        for (var key in from) {
+          if (hasOwnProperty.call(from, key)) {
+            to[key] = from[key]
+          }
+        }
+
+        if (getOwnPropertySymbols) {
+          symbols = getOwnPropertySymbols(from)
+
+          for (var i = 0; i < symbols.length; i++) {
+            if (propIsEnumerable.call(from, symbols[i])) {
+              to[symbols[i]] = from[symbols[i]]
+            }
+          }
+        }
+      }
+
+      return to
+    }
+
+var merge = function merge(a, b) {
+  var result = objectAssign({}, a, b)
+
+  for (var key in a) {
+    var _assign
+
+    if (!a[key] || typeof b[key] !== 'object') continue
+    objectAssign(result, ((_assign = {}), (_assign[key] = objectAssign(a[key], b[key])), _assign))
+  }
+
+  return result
+} // sort object-value responsive styles
+
+var sort = function sort(obj) {
+  var next = {}
+  Object.keys(obj)
+    .sort(function (a, b) {
+      return a.localeCompare(b, undefined, {
+        numeric: true,
+        sensitivity: 'base',
+      })
+    })
+    .forEach(function (key) {
+      next[key] = obj[key]
+    })
+  return next
+}
+
+var defaults = {
+  breakpoints: [40, 52, 64].map(function (n) {
+    return n + 'em'
+  }),
+}
+
+var createMediaQuery = function createMediaQuery(n) {
+  return '@media screen and (min-width: ' + n + ')'
+}
+
+var getValue = function getValue(n, scale) {
+  return get(scale, n, n)
+}
+
+var get = function get(obj, key, def, p, undef) {
+  key = key && key.split ? key.split('.') : [key]
+
+  for (p = 0; p < key.length; p++) {
+    obj = obj ? obj[key[p]] : undef
+  }
+
+  return obj === undef ? def : obj
+}
+var createParser = function createParser(config) {
+  var cache = {}
+
+  var parse = function parse(props) {
+    var styles = {}
+    var shouldSort = false
+    var isCacheDisabled = props.theme && props.theme.disableStyledSystemCache
+
+    for (var key in props) {
+      if (!config[key]) continue
+      var sx = config[key]
+      var raw = props[key]
+      var scale = get(props.theme, sx.scale, sx.defaults)
+
+      if (typeof raw === 'object') {
+        cache.breakpoints =
+          (!isCacheDisabled && cache.breakpoints) ||
+          get(props.theme, 'breakpoints', defaults.breakpoints)
+
+        if (Array.isArray(raw)) {
+          cache.media =
+            (!isCacheDisabled && cache.media) ||
+            [null].concat(cache.breakpoints.map(createMediaQuery))
+          styles = merge(styles, parseResponsiveStyle(cache.media, sx, scale, raw, props))
+          continue
+        }
+
+        if (raw !== null) {
+          styles = merge(styles, parseResponsiveObject(cache.breakpoints, sx, scale, raw, props))
+          shouldSort = true
+        }
+
+        continue
+      }
+
+      objectAssign(styles, sx(raw, scale, props))
+    } // sort object-based responsive styles
+
+    if (shouldSort) {
+      styles = sort(styles)
+    }
+
+    return styles
+  }
+
+  parse.config = config
+  parse.propNames = Object.keys(config)
+  parse.cache = cache
+  var keys = Object.keys(config).filter(function (k) {
+    return k !== 'config'
+  })
+
+  if (keys.length > 1) {
+    keys.forEach(function (key) {
+      var _createParser
+
+      parse[key] = createParser(
+        ((_createParser = {}), (_createParser[key] = config[key]), _createParser),
+      )
+    })
+  }
+
+  return parse
+}
+
+var parseResponsiveStyle = function parseResponsiveStyle(mediaQueries, sx, scale, raw, _props) {
+  var styles = {}
+  raw.slice(0, mediaQueries.length).forEach(function (value, i) {
+    var media = mediaQueries[i]
+    var style = sx(value, scale, _props)
+
+    if (!media) {
+      objectAssign(styles, style)
+    } else {
+      var _assign2
+
+      objectAssign(
+        styles,
+        ((_assign2 = {}), (_assign2[media] = objectAssign({}, styles[media], style)), _assign2),
+      )
+    }
+  })
+  return styles
+}
+
+var parseResponsiveObject = function parseResponsiveObject(breakpoints, sx, scale, raw, _props) {
+  var styles = {}
+
+  for (var key in raw) {
+    var breakpoint = breakpoints[key]
+    var value = raw[key]
+    var style = sx(value, scale, _props)
+
+    if (!breakpoint) {
+      objectAssign(styles, style)
+    } else {
+      var _assign3
+
+      var media = createMediaQuery(breakpoint)
+      objectAssign(
+        styles,
+        ((_assign3 = {}), (_assign3[media] = objectAssign({}, styles[media], style)), _assign3),
+      )
+    }
+  }
+
+  return styles
+}
+
+var createStyleFunction = function createStyleFunction(_ref) {
+  var properties = _ref.properties,
+    property = _ref.property,
+    scale = _ref.scale,
+    _ref$transform = _ref.transform,
+    transform = _ref$transform === void 0 ? getValue : _ref$transform,
+    defaultScale = _ref.defaultScale
+  properties = properties || [property]
+
+  var sx = function sx(value, scale, _props) {
+    var result = {}
+    var n = transform(value, scale, _props)
+    if (n === null) return
+    properties.forEach(function (prop) {
+      result[prop] = n
+    })
+    return result
+  }
+
+  sx.scale = scale
+  sx.defaults = defaultScale
+  return sx
+} // new v5 API
+
+var system = function system(args) {
+  if (args === void 0) {
+    args = {}
+  }
+
+  var config = {}
+  Object.keys(args).forEach(function (key) {
+    var conf = args[key]
+
+    if (conf === true) {
+      // shortcut definition
+      config[key] = createStyleFunction({
+        property: key,
+        scale: key,
+      })
+      return
+    }
+
+    if (typeof conf === 'function') {
+      config[key] = conf
+      return
+    }
+
+    config[key] = createStyleFunction(conf)
+  })
+  var parser = createParser(config)
+  return parser
+}
+var compose = function compose() {
+  var config = {}
+
+  for (var _len = arguments.length, parsers = new Array(_len), _key = 0; _key < _len; _key++) {
+    parsers[_key] = arguments[_key]
+  }
+
+  parsers.forEach(function (parser) {
+    if (!parser || !parser.config) return
+    objectAssign(config, parser.config)
+  })
+  var parser = createParser(config)
+  return parser
+}
+
+var isNumber = function isNumber(n) {
+  return typeof n === 'number' && !isNaN(n)
+}
+
+var getWidth = function getWidth(n, scale) {
+  return get(scale, n, !isNumber(n) || n > 1 ? n : n * 100 + '%')
+}
+
+var config = {
+  width: {
+    property: 'width',
+    scale: 'sizes',
+    transform: getWidth,
+  },
+  height: {
+    property: 'height',
+    scale: 'sizes',
+  },
+  minWidth: {
+    property: 'minWidth',
+    scale: 'sizes',
+  },
+  minHeight: {
+    property: 'minHeight',
+    scale: 'sizes',
+  },
+  maxWidth: {
+    property: 'maxWidth',
+    scale: 'sizes',
+  },
+  maxHeight: {
+    property: 'maxHeight',
+    scale: 'sizes',
+  },
+  size: {
+    properties: ['width', 'height'],
+    scale: 'sizes',
+  },
+  overflow: true,
+  overflowX: true,
+  overflowY: true,
+  display: true,
+  verticalAlign: true,
+}
+var layout = system(config)
+
+var config$1 = {
+  color: {
+    property: 'color',
+    scale: 'colors',
+  },
+  backgroundColor: {
+    property: 'backgroundColor',
+    scale: 'colors',
+  },
+  opacity: true,
+}
+config$1.bg = config$1.backgroundColor
+var color = system(config$1)
+
+var defaults$1 = {
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
+}
+var config$2 = {
+  fontFamily: {
+    property: 'fontFamily',
+    scale: 'fonts',
+  },
+  fontSize: {
+    property: 'fontSize',
+    scale: 'fontSizes',
+    defaultScale: defaults$1.fontSizes,
+  },
+  fontWeight: {
+    property: 'fontWeight',
+    scale: 'fontWeights',
+  },
+  lineHeight: {
+    property: 'lineHeight',
+    scale: 'lineHeights',
+  },
+  letterSpacing: {
+    property: 'letterSpacing',
+    scale: 'letterSpacings',
+  },
+  textAlign: true,
+  fontStyle: true,
+}
+var typography = system(config$2)
+
+var config$3 = {
+  alignItems: true,
+  alignContent: true,
+  justifyItems: true,
+  justifyContent: true,
+  flexWrap: true,
+  flexDirection: true,
+  // item
+  flex: true,
+  flexGrow: true,
+  flexShrink: true,
+  flexBasis: true,
+  justifySelf: true,
+  alignSelf: true,
+  order: true,
+}
+var flexbox = system(config$3)
+
+var defaults$2 = {
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+}
+var config$4 = {
+  gridGap: {
+    property: 'gridGap',
+    scale: 'space',
+    defaultScale: defaults$2.space,
+  },
+  gridColumnGap: {
+    property: 'gridColumnGap',
+    scale: 'space',
+    defaultScale: defaults$2.space,
+  },
+  gridRowGap: {
+    property: 'gridRowGap',
+    scale: 'space',
+    defaultScale: defaults$2.space,
+  },
+  gridColumn: true,
+  gridRow: true,
+  gridAutoFlow: true,
+  gridAutoColumns: true,
+  gridAutoRows: true,
+  gridTemplateColumns: true,
+  gridTemplateRows: true,
+  gridTemplateAreas: true,
+  gridArea: true,
+}
+var grid = system(config$4)
+
+var config$5 = {
+  border: {
+    property: 'border',
+    scale: 'borders',
+  },
+  borderWidth: {
+    property: 'borderWidth',
+    scale: 'borderWidths',
+  },
+  borderStyle: {
+    property: 'borderStyle',
+    scale: 'borderStyles',
+  },
+  borderColor: {
+    property: 'borderColor',
+    scale: 'colors',
+  },
+  borderRadius: {
+    property: 'borderRadius',
+    scale: 'radii',
+  },
+  borderTop: {
+    property: 'borderTop',
+    scale: 'borders',
+  },
+  borderTopLeftRadius: {
+    property: 'borderTopLeftRadius',
+    scale: 'radii',
+  },
+  borderTopRightRadius: {
+    property: 'borderTopRightRadius',
+    scale: 'radii',
+  },
+  borderRight: {
+    property: 'borderRight',
+    scale: 'borders',
+  },
+  borderBottom: {
+    property: 'borderBottom',
+    scale: 'borders',
+  },
+  borderBottomLeftRadius: {
+    property: 'borderBottomLeftRadius',
+    scale: 'radii',
+  },
+  borderBottomRightRadius: {
+    property: 'borderBottomRightRadius',
+    scale: 'radii',
+  },
+  borderLeft: {
+    property: 'borderLeft',
+    scale: 'borders',
+  },
+  borderX: {
+    properties: ['borderLeft', 'borderRight'],
+    scale: 'borders',
+  },
+  borderY: {
+    properties: ['borderTop', 'borderBottom'],
+    scale: 'borders',
+  },
+}
+config$5.borderTopWidth = {
+  property: 'borderTopWidth',
+  scale: 'borderWidths',
+}
+config$5.borderTopColor = {
+  property: 'borderTopColor',
+  scale: 'colors',
+}
+config$5.borderTopStyle = {
+  property: 'borderTopStyle',
+  scale: 'borderStyles',
+}
+config$5.borderTopLeftRadius = {
+  property: 'borderTopLeftRadius',
+  scale: 'radii',
+}
+config$5.borderTopRightRadius = {
+  property: 'borderTopRightRadius',
+  scale: 'radii',
+}
+config$5.borderBottomWidth = {
+  property: 'borderBottomWidth',
+  scale: 'borderWidths',
+}
+config$5.borderBottomColor = {
+  property: 'borderBottomColor',
+  scale: 'colors',
+}
+config$5.borderBottomStyle = {
+  property: 'borderBottomStyle',
+  scale: 'borderStyles',
+}
+config$5.borderBottomLeftRadius = {
+  property: 'borderBottomLeftRadius',
+  scale: 'radii',
+}
+config$5.borderBottomRightRadius = {
+  property: 'borderBottomRightRadius',
+  scale: 'radii',
+}
+config$5.borderLeftWidth = {
+  property: 'borderLeftWidth',
+  scale: 'borderWidths',
+}
+config$5.borderLeftColor = {
+  property: 'borderLeftColor',
+  scale: 'colors',
+}
+config$5.borderLeftStyle = {
+  property: 'borderLeftStyle',
+  scale: 'borderStyles',
+}
+config$5.borderRightWidth = {
+  property: 'borderRightWidth',
+  scale: 'borderWidths',
+}
+config$5.borderRightColor = {
+  property: 'borderRightColor',
+  scale: 'colors',
+}
+config$5.borderRightStyle = {
+  property: 'borderRightStyle',
+  scale: 'borderStyles',
+}
+var border = system(config$5)
+
+var config$6 = {
+  background: true,
+  backgroundImage: true,
+  backgroundSize: true,
+  backgroundPosition: true,
+  backgroundRepeat: true,
+}
+config$6.bgImage = config$6.backgroundImage
+config$6.bgSize = config$6.backgroundSize
+config$6.bgPosition = config$6.backgroundPosition
+config$6.bgRepeat = config$6.backgroundRepeat
+var background = system(config$6)
+
+var defaults$3 = {
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+}
+var config$7 = {
+  position: true,
+  zIndex: {
+    property: 'zIndex',
+    scale: 'zIndices',
+  },
+  top: {
+    property: 'top',
+    scale: 'space',
+    defaultScale: defaults$3.space,
+  },
+  right: {
+    property: 'right',
+    scale: 'space',
+    defaultScale: defaults$3.space,
+  },
+  bottom: {
+    property: 'bottom',
+    scale: 'space',
+    defaultScale: defaults$3.space,
+  },
+  left: {
+    property: 'left',
+    scale: 'space',
+    defaultScale: defaults$3.space,
+  },
+}
+var position = system(config$7)
+
+var defaults$4 = {
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+}
+
+var isNumber$1 = function isNumber(n) {
+  return typeof n === 'number' && !isNaN(n)
+}
+
+var getMargin = function getMargin(n, scale) {
+  if (!isNumber$1(n)) {
+    return get(scale, n, n)
+  }
+
+  var isNegative = n < 0
+  var absolute = Math.abs(n)
+  var value = get(scale, absolute, absolute)
+
+  if (!isNumber$1(value)) {
+    return isNegative ? '-' + value : value
+  }
+
+  return value * (isNegative ? -1 : 1)
+}
+
+var configs = {}
+configs.margin = {
+  margin: {
+    property: 'margin',
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+  marginTop: {
+    property: 'marginTop',
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+  marginRight: {
+    property: 'marginRight',
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+  marginBottom: {
+    property: 'marginBottom',
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+  marginLeft: {
+    property: 'marginLeft',
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+  marginX: {
+    properties: ['marginLeft', 'marginRight'],
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+  marginY: {
+    properties: ['marginTop', 'marginBottom'],
+    scale: 'space',
+    transform: getMargin,
+    defaultScale: defaults$4.space,
+  },
+}
+configs.margin.m = configs.margin.margin
+configs.margin.mt = configs.margin.marginTop
+configs.margin.mr = configs.margin.marginRight
+configs.margin.mb = configs.margin.marginBottom
+configs.margin.ml = configs.margin.marginLeft
+configs.margin.mx = configs.margin.marginX
+configs.margin.my = configs.margin.marginY
+configs.padding = {
+  padding: {
+    property: 'padding',
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+  paddingTop: {
+    property: 'paddingTop',
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+  paddingRight: {
+    property: 'paddingRight',
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+  paddingBottom: {
+    property: 'paddingBottom',
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+  paddingLeft: {
+    property: 'paddingLeft',
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+  paddingX: {
+    properties: ['paddingLeft', 'paddingRight'],
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+  paddingY: {
+    properties: ['paddingTop', 'paddingBottom'],
+    scale: 'space',
+    defaultScale: defaults$4.space,
+  },
+}
+configs.padding.p = configs.padding.padding
+configs.padding.pt = configs.padding.paddingTop
+configs.padding.pr = configs.padding.paddingRight
+configs.padding.pb = configs.padding.paddingBottom
+configs.padding.pl = configs.padding.paddingLeft
+configs.padding.px = configs.padding.paddingX
+configs.padding.py = configs.padding.paddingY
+var margin = system(configs.margin)
+var padding = system(configs.padding)
+var space = compose(margin, padding)
+
+var shadow = system({
+  boxShadow: {
+    property: 'boxShadow',
+    scale: 'shadows',
+  },
+  textShadow: {
+    property: 'textShadow',
+    scale: 'shadows',
+  },
+})
+
+function _extends() {
+  _extends =
+    Object.assign ||
+    function (target) {
+      for (var i = 1; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key]
+          }
+        }
+      }
+
+      return target
+    }
+
+  return _extends.apply(this, arguments)
+} // based on https://github.com/developit/dlv
+
+var get$1 = function get(obj, key, def, p, undef) {
+  key = key && key.split ? key.split('.') : [key]
+
+  for (p = 0; p < key.length; p++) {
+    obj = obj ? obj[key[p]] : undef
+  }
+
+  return obj === undef ? def : obj
+}
+var defaultBreakpoints = [40, 52, 64].map(function (n) {
+  return n + 'em'
+})
+var defaultTheme = {
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72],
+}
+var aliases = {
+  bg: 'backgroundColor',
+  m: 'margin',
+  mt: 'marginTop',
+  mr: 'marginRight',
+  mb: 'marginBottom',
+  ml: 'marginLeft',
+  mx: 'marginX',
+  my: 'marginY',
+  p: 'padding',
+  pt: 'paddingTop',
+  pr: 'paddingRight',
+  pb: 'paddingBottom',
+  pl: 'paddingLeft',
+  px: 'paddingX',
+  py: 'paddingY',
+}
+var multiples = {
+  marginX: ['marginLeft', 'marginRight'],
+  marginY: ['marginTop', 'marginBottom'],
+  paddingX: ['paddingLeft', 'paddingRight'],
+  paddingY: ['paddingTop', 'paddingBottom'],
+  size: ['width', 'height'],
+}
+var scales = {
+  color: 'colors',
+  backgroundColor: 'colors',
+  borderColor: 'colors',
+  margin: 'space',
+  marginTop: 'space',
+  marginRight: 'space',
+  marginBottom: 'space',
+  marginLeft: 'space',
+  marginX: 'space',
+  marginY: 'space',
+  padding: 'space',
+  paddingTop: 'space',
+  paddingRight: 'space',
+  paddingBottom: 'space',
+  paddingLeft: 'space',
+  paddingX: 'space',
+  paddingY: 'space',
+  top: 'space',
+  right: 'space',
+  bottom: 'space',
+  left: 'space',
+  gridGap: 'space',
+  gridColumnGap: 'space',
+  gridRowGap: 'space',
+  gap: 'space',
+  columnGap: 'space',
+  rowGap: 'space',
+  fontFamily: 'fonts',
+  fontSize: 'fontSizes',
+  fontWeight: 'fontWeights',
+  lineHeight: 'lineHeights',
+  letterSpacing: 'letterSpacings',
+  border: 'borders',
+  borderTop: 'borders',
+  borderRight: 'borders',
+  borderBottom: 'borders',
+  borderLeft: 'borders',
+  borderWidth: 'borderWidths',
+  borderStyle: 'borderStyles',
+  borderRadius: 'radii',
+  borderTopRightRadius: 'radii',
+  borderTopLeftRadius: 'radii',
+  borderBottomRightRadius: 'radii',
+  borderBottomLeftRadius: 'radii',
+  borderTopWidth: 'borderWidths',
+  borderTopColor: 'colors',
+  borderTopStyle: 'borderStyles',
+  borderBottomWidth: 'borderWidths',
+  borderBottomColor: 'colors',
+  borderBottomStyle: 'borderStyles',
+  borderLeftWidth: 'borderWidths',
+  borderLeftColor: 'colors',
+  borderLeftStyle: 'borderStyles',
+  borderRightWidth: 'borderWidths',
+  borderRightColor: 'colors',
+  borderRightStyle: 'borderStyles',
+  outlineColor: 'colors',
+  boxShadow: 'shadows',
+  textShadow: 'shadows',
+  zIndex: 'zIndices',
+  width: 'sizes',
+  minWidth: 'sizes',
+  maxWidth: 'sizes',
+  height: 'sizes',
+  minHeight: 'sizes',
+  maxHeight: 'sizes',
+  flexBasis: 'sizes',
+  size: 'sizes',
+  // svg
+  fill: 'colors',
+  stroke: 'colors',
+}
+
+var positiveOrNegative = function positiveOrNegative(scale, value) {
+  if (typeof value !== 'number' || value >= 0) {
+    return get$1(scale, value, value)
+  }
+
+  var absolute = Math.abs(value)
+  var n = get$1(scale, absolute, absolute)
+  if (typeof n === 'string') return '-' + n
+  return n * -1
+}
+
+var transforms = [
+  'margin',
+  'marginTop',
+  'marginRight',
+  'marginBottom',
+  'marginLeft',
+  'marginX',
+  'marginY',
+  'top',
+  'bottom',
+  'left',
+  'right',
+].reduce(function (acc, curr) {
+  var _extends2
+
+  return _extends({}, acc, ((_extends2 = {}), (_extends2[curr] = positiveOrNegative), _extends2))
+}, {})
+var responsive = function responsive(styles) {
+  return function (theme) {
+    var next = {}
+    var breakpoints = get$1(theme, 'breakpoints', defaultBreakpoints)
+    var mediaQueries = [null].concat(
+      breakpoints.map(function (n) {
+        return '@media screen and (min-width: ' + n + ')'
+      }),
+    )
+
+    for (var key in styles) {
+      var value = typeof styles[key] === 'function' ? styles[key](theme) : styles[key]
+      if (value == null) continue
+
+      if (!Array.isArray(value)) {
+        next[key] = value
+        continue
+      }
+
+      for (var i = 0; i < value.slice(0, mediaQueries.length).length; i++) {
+        var media = mediaQueries[i]
+
+        if (!media) {
+          next[key] = value[i]
+          continue
+        }
+
+        next[media] = next[media] || {}
+        if (value[i] == null) continue
+        next[media][key] = value[i]
+      }
+    }
+
+    return next
+  }
+}
+var css = function css(args) {
+  return function (props) {
+    if (props === void 0) {
+      props = {}
+    }
+
+    var theme = _extends({}, defaultTheme, {}, props.theme || props)
+
+    var result = {}
+    var obj = typeof args === 'function' ? args(theme) : args
+    var styles = responsive(obj)(theme)
+
+    for (var key in styles) {
+      var x = styles[key]
+      var val = typeof x === 'function' ? x(theme) : x
+
+      if (key === 'variant') {
+        var variant = css(get$1(theme, val))(theme)
+        result = _extends({}, result, {}, variant)
+        continue
+      }
+
+      if (val && typeof val === 'object') {
+        result[key] = css(val)(theme)
+        continue
+      }
+
+      var prop = get$1(aliases, key, key)
+      var scaleName = get$1(scales, prop)
+      var scale = get$1(theme, scaleName, get$1(theme, prop, {}))
+      var transform = get$1(transforms, prop, get$1)
+      var value = transform(scale, val, val)
+
+      if (multiples[prop]) {
+        var dirs = multiples[prop]
+
+        for (var i = 0; i < dirs.length; i++) {
+          result[dirs[i]] = value
+        }
+      } else {
+        result[prop] = value
+      }
+    }
+
+    return result
+  }
+}
+
+var variant = function variant(_ref) {
+  var _config
+
+  var scale = _ref.scale,
+    _ref$prop = _ref.prop,
+    prop = _ref$prop === void 0 ? 'variant' : _ref$prop,
+    _ref$variants = _ref.variants,
+    variants = _ref$variants === void 0 ? {} : _ref$variants,
+    key = _ref.key
+  var sx
+
+  if (Object.keys(variants).length) {
+    sx = function sx(value, scale, props) {
+      return css(get(scale, value, null))(props.theme)
+    }
+  } else {
+    sx = function sx(value, scale) {
+      return get(scale, value, null)
+    }
+  }
+
+  sx.scale = scale || key
+  sx.defaults = variants
+  var config = ((_config = {}), (_config[prop] = sx), _config)
+  var parser = createParser(config)
+  return parser
+}
+var buttonStyle = variant({
+  key: 'buttons',
+})
+var textStyle = variant({
+  key: 'textStyles',
+  prop: 'textStyle',
+})
+var colorStyle = variant({
+  key: 'colorStyles',
+  prop: 'colors',
+})
+
+var width = layout.width,
+  height = layout.height,
+  minHeight = layout.minHeight,
+  display = layout.display,
+  overflow = layout.overflow
+var opacity = color.opacity
+var fontSize = typography.fontSize,
+  fontFamily = typography.fontFamily,
+  fontWeight = typography.fontWeight,
+  lineHeight = typography.lineHeight
+var alignItems = flexbox.alignItems,
+  justifyContent = flexbox.justifyContent,
+  flexWrap = flexbox.flexWrap,
+  flexDirection = flexbox.flexDirection,
+  flex = flexbox.flex
+var gridGap = grid.gridGap,
+  gridColumnGap = grid.gridColumnGap,
+  gridRowGap = grid.gridRowGap,
+  gridAutoFlow = grid.gridAutoFlow,
+  gridAutoColumns = grid.gridAutoColumns,
+  gridAutoRows = grid.gridAutoRows,
+  gridTemplateColumns = grid.gridTemplateColumns,
+  gridTemplateRows = grid.gridTemplateRows,
+  gridTemplateAreas = grid.gridTemplateAreas,
+  gridArea = grid.gridArea
+var borderRadius = border.borderRadius
+var zIndex = position.zIndex,
+  top = position.top,
+  right = position.right,
+  bottom = position.bottom,
+  left = position.left
+
+var style = function style(_ref) {
+  var prop = _ref.prop,
+    cssProperty = _ref.cssProperty,
+    alias = _ref.alias,
+    key = _ref.key,
+    transformValue = _ref.transformValue,
+    scale = _ref.scale,
+    properties = _ref.properties
+  var config = {}
+  config[prop] = createStyleFunction({
+    properties: properties,
+    property: cssProperty || prop,
+    scale: key,
+    defaultScale: scale,
+    transform: transformValue,
+  })
+  if (alias) config[alias] = config[prop]
+  var parse = createParser(config)
+  return parse
+}
+
+var datepickerPhrases = {
+  datepickerStartDatePlaceholder: 'Select',
+  datepickerStartDateLabel: 'Start date:',
+  datepickerEndDatePlaceholder: 'Select',
+  datepickerEndDateLabel: 'End date:',
+  resetDates: 'Reset dates',
+  close: 'Close',
+}
+var dateRangeInputPhrases = __assign(__assign({}, datepickerPhrases), {
+  startDateAriaLabel: 'Start date',
+  endDateAriaLabel: 'End date',
+  startDatePlaceholder: 'Start date',
+  endDatePlaceholder: 'End date',
+})
+var dateSingleInputPhrases = __assign(__assign({}, datepickerPhrases), {
+  dateAriaLabel: 'Select date',
+  datePlaceholder: 'Select date',
+})
+
+var daySizeGridTemplateColumns = style({
+  // React prop name and CSS property
+  prop: 'daySizeGridTemplateColumns',
+  // CSS property (if different from prop argument)
+  cssProperty: 'gridTemplateColumns',
+  // key for theme values
+  key: 'gridTemplateColumns',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return 'repeat(7, ' + n + 'px)'
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var composeGridStyles = compose(
+  gridAutoColumns,
+  gridAutoFlow,
+  gridAutoRows,
+  gridColumnGap,
+  gridGap,
+  gridRowGap,
+  gridTemplateAreas,
+  gridTemplateColumns,
+  gridTemplateRows,
+  alignItems,
+  justifyContent,
+  space,
+)
+var Grid = styled__default('div')(
+  templateObject_1 ||
+    (templateObject_1 = __makeTemplateObject(
+      ['\n  display: grid;\n  ', '\n  ', '\n'],
+      ['\n  display: grid;\n  ', '\n  ', '\n'],
+    )),
+  composeGridStyles,
+  daySizeGridTemplateColumns,
+)
+var templateObject_1
+
+var composeFlexStyles = compose(
+  space,
+  flex,
+  flexWrap,
+  flexDirection,
+  alignItems,
+  justifyContent,
+  gridArea,
+  height,
+  width,
+)
+var Flex = styled__default('div')(
+  templateObject_1$1 ||
+    (templateObject_1$1 = __makeTemplateObject(
+      ['\n  display: flex;\n  ', '\n'],
+      ['\n  display: flex;\n  ', '\n'],
+    )),
+  composeFlexStyles,
+)
+var templateObject_1$1
+
+var composeBoxStyles = compose(
+  gridArea,
+  height,
+  space,
+  width,
+  position,
+  top,
+  left,
+  right,
+  bottom,
+  zIndex,
+)
+var Box = styled__default('div')(
+  templateObject_1$2 ||
+    (templateObject_1$2 = __makeTemplateObject(
+      ['\n  box-sizing: border-box;\n  ', '\n'],
+      ['\n  box-sizing: border-box;\n  ', '\n'],
+    )),
+  composeBoxStyles,
+)
+var templateObject_1$2
+
+function CalendarIcon(_a) {
+  var height = _a.height,
+    width = _a.width,
+    color = _a.color,
+    _b = _a.className,
+    className = _b === void 0 ? '' : _b
+  return React__default.createElement(
+    'svg',
+    {
+      width: width,
+      height: height,
+      color: color,
+      className: className,
+      viewBox: '0 0 12 12',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    React__default.createElement('path', {
+      d:
+        'M8 1H7v1h1V1zM6.5 6.5h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zM6 3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v2A.5.5 0 0 0 6 3zm3.5 5.5h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm0-2h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zM9 3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v2A.5.5 0 0 0 9 3zm-.5 2.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zm-3 0h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zm-2 3h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zM11 1h-1v1h1v9H1V2h1V1H1a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM3.5 6.5h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zM5 1H4v1h1V1zm1.5 7.5h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1zm-4-3h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1zM3 3a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-1 0v2A.5.5 0 0 0 3 3z',
+      fill: 'currentColor',
+      fillRule: 'nonzero',
+    }),
+  )
+}
+
+function useThemeProps(themeProps) {
+  if (themeProps === void 0) {
+    themeProps = {}
+  }
+  var context = React.useContext(styled.ThemeContext)
+  var theme = React.useMemo(
+    function () {
+      if (
+        context &&
+        typeof context === 'object' &&
+        context.reactDatepicker &&
+        typeof context.reactDatepicker === 'object'
+      ) {
+        return Object.keys(themeProps).reduce(function (prevObj, val) {
+          var _a
+          return __assign(
+            __assign({}, prevObj),
+            ((_a = {}), (_a[val] = context.reactDatepicker[val] || themeProps[val]), _a),
+          )
+        }, {})
+      }
+      return themeProps
+    },
+    [context, themeProps],
+  )
+  return theme
+}
+
+var globalStyles = {
+  fontFamily: 'Montserrat, sans-serif',
+  colors: {
+    primaryColor: '#00aeef',
+    silverCloud: '#929598',
+    charcoal: '#001217',
+    darcula: '#343132',
+    mud: '#58595B',
+    greey: '#808285',
+    graci: '#BCBEC0',
+    white: '#ffffff',
+    accessibility: '#009fef',
+    selectedDay: '#71c9ed',
+    selectedDayHover: '#39beef',
+    normalDayHover: '#e6e7e8',
+  },
+  daySize: 36,
+}
+
+function getThemeProp(themeProp, defaultValue, theme) {
+  if (
+    theme &&
+    typeof theme === 'object' &&
+    theme.reactDatepicker &&
+    typeof theme.reactDatepicker === 'object' &&
+    theme.reactDatepicker.colors &&
+    typeof theme.reactDatepicker.colors === 'object' &&
+    theme.reactDatepicker.colors[themeProp]
+  ) {
+    return theme.reactDatepicker.colors[themeProp]
+  }
+  return defaultValue
+}
+
+var placeholderColor = style({
+  prop: 'placeholderColor',
+  cssProperty: 'color',
+})
+var placeholderFontWeight = style({
+  prop: 'placeholderFontWeight',
+  cssProperty: 'fontWeight',
+})
+var composeInputLabelStyles = compose(position, border, background, display, borderRadius, space)
+var InputLabel = styled__default('label')(
+  templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  composeInputLabelStyles,
+)
+var composeCalendarWrapperStyles = compose(position, left, right, top, height, width)
+var CalendarWrapper = styled__default('div')(
+  templateObject_2 ||
+    (templateObject_2 = __makeTemplateObject(
+      ['\n  ', '\n  cursor: pointer;\n\n  svg {\n    display: block;\n  }\n'],
+      ['\n  ', '\n  cursor: pointer;\n\n  svg {\n    display: block;\n  }\n'],
+    )),
+  composeCalendarWrapperStyles,
+)
+var composeStyledInputStyle = compose(
+  background,
+  space,
+  fontFamily,
+  fontSize,
+  color,
+  fontWeight,
+  space,
+  border,
+  width,
+  minHeight,
+  shadow,
+)
+var StyledInput = styled__default('input')(
+  templateObject_3 ||
+    (templateObject_3 = __makeTemplateObject(
+      [
+        '\n  ',
+        '\n  cursor: pointer;\n  box-sizing: border-box;\n  outline: 0;\n\n  ::-webkit-input-placeholder {\n    /* Chrome/Opera/Safari */\n    ',
+        '\n    ',
+        '\n  }\n  ::-moz-placeholder {\n    /* Firefox 19+ */\n    ',
+        '\n    ',
+        '\n  }\n  :-moz-placeholder {\n    /* Firefox 18- */\n    ',
+        '\n    ',
+        '\n  }\n',
+      ],
+      [
+        '\n  ',
+        '\n  cursor: pointer;\n  box-sizing: border-box;\n  outline: 0;\n\n  ::-webkit-input-placeholder {\n    /* Chrome/Opera/Safari */\n    ',
+        '\n    ',
+        '\n  }\n  ::-moz-placeholder {\n    /* Firefox 19+ */\n    ',
+        '\n    ',
+        '\n  }\n  :-moz-placeholder {\n    /* Firefox 18- */\n    ',
+        '\n    ',
+        '\n  }\n',
+      ],
+    )),
+  composeStyledInputStyle,
+  placeholderFontWeight,
+  placeholderColor,
+  placeholderFontWeight,
+  placeholderColor,
+  placeholderFontWeight,
+  placeholderColor,
+)
+function Input(_a) {
+  var placeholder = _a.placeholder,
+    id = _a.id,
+    vertical = _a.vertical,
+    isActive = _a.isActive,
+    ariaLabel = _a.ariaLabel,
+    onClick = _a.onClick,
+    value = _a.value,
+    showCalendarIcon = _a.showCalendarIcon,
+    padding = _a.padding,
+    rtl = _a.rtl,
+    disableAccessibility = _a.disableAccessibility,
+    dateFormat = _a.dateFormat,
+    _b = _a.onChange,
+    onChange = _b === void 0 ? function () {} : _b
+  var _c = React.useState(value),
+    searchString = _c[0],
+    setSearchString = _c[1]
+  var ref = React.useRef(null)
+  React.useEffect(
+    function () {
+      setSearchString(value)
+    },
+    [value],
+  )
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    inputFontWeight: 600,
+    inputFontSize: '14px',
+    inputColor: getThemeProp('charcoal', globalStyles.colors.charcoal, themeContext),
+    inputBackground: getThemeProp('white', globalStyles.colors.white, themeContext),
+    inputMinHeight: '46px',
+    inputWidth: '100%',
+    inputPadding: padding,
+    inputBorder: '0',
+    inputPlaceholderFontWeight: 500,
+    inputPlaceholderColor: getThemeProp(
+      'silverCloud',
+      globalStyles.colors.silverCloud,
+      themeContext,
+    ),
+    inputCalendarWrapperPosition: 'absolute',
+    inputCalendarWrapperHeight: '12px',
+    inputCalendarWrapperWidth: '12px',
+    inputCalendarWrapperTop: '16px',
+    inputCalendarWrapperLeft: rtl ? 'unset' : vertical ? '8px' : '16px',
+    inputCalendarWrapperRight: rtl ? (vertical ? '8px' : '16px') : 'unset',
+    inputCalendarIconWidth: '12px',
+    inputCalendarIconHeight: '12px',
+    inputCalendarIconColor: getThemeProp('graci', globalStyles.colors.graci, themeContext),
+    inputLabelDisplay: 'block',
+    inputLabelPosition: 'relative',
+    inputLabelBorder: '1px solid ' + getThemeProp('graci', globalStyles.colors.graci, themeContext),
+    inputLabelBorderRadius: '2px',
+    inputLabelBackground: getThemeProp('white', globalStyles.colors.white, themeContext),
+    inputLabelMargin: '0',
+    inputActiveBoxShadow:
+      'inset 0px -3px 0 ' +
+      getThemeProp('primaryColor', globalStyles.colors.primaryColor, themeContext),
+  })
+  function handleOnChange(e) {
+    var dateValue = e.target.value
+    setSearchString(dateValue)
+    if (typeof ref.current === 'number') {
+      // @ts-ignore
+      clearTimeout(ref.current)
+    }
+    // @ts-ignore
+    ref.current = setTimeout(function () {
+      onClick()
+      // @ts-ignore
+      var parsedDate = parse(dateValue, dateFormat, new Date())
+      // @ts-ignore
+      if (!isNaN(parsedDate)) {
+        onChange(parsedDate)
+      }
+    }, 1000)
+  }
+  return React__default.createElement(
+    InputLabel,
+    {
+      htmlFor: id,
+      display: theme.inputLabelDisplay,
+      position: theme.inputLabelPosition,
+      border: theme.inputLabelBorder,
+      background: theme.inputLabelBackground,
+      borderRadius: theme.inputLabelBorderRadius,
+      m: theme.inputLabelMargin,
+    },
+    showCalendarIcon &&
+      React__default.createElement(
+        CalendarWrapper,
+        {
+          position: theme.inputCalendarWrapperPosition,
+          height: theme.inputCalendarWrapperHeight,
+          width: theme.inputCalendarWrapperWidth,
+          top: theme.inputCalendarWrapperTop,
+          left: theme.inputCalendarWrapperLeft,
+          right: theme.inputCalendarWrapperRight,
+        },
+        React__default.createElement(
+          CalendarIcon,
+          // @ts-ignore
+          {
+            // @ts-ignore
+            width: theme.inputCalendarIconWidth,
+            // @ts-ignore
+            height: theme.inputCalendarIconHeight,
+            // @ts-ignore
+            color: theme.inputCalendarIconColor,
+          },
+        ),
+      ),
+    React__default.createElement(StyledInput, {
+      tabIndex: disableAccessibility ? -1 : 0,
+      border: theme.inputBorder,
+      p: theme.inputPadding,
+      // @ts-ignore
+      width: theme.inputWidth,
+      minHeight: theme.inputMinHeight,
+      background: theme.inputBackground,
+      fontFamily: theme.fontFamily,
+      // @ts-ignore
+      color: theme.inputColor,
+      fontSize: theme.inputFontSize,
+      fontWeight: theme.inputFontWeight,
+      placeholderColor: theme.inputPlaceholderColor,
+      placeholderFontWeight: theme.inputPlaceholderFontWeight,
+      boxShadow: isActive ? theme.inputActiveBoxShadow : 'none',
+      id: id,
+      placeholder: placeholder,
+      'aria-label': ariaLabel,
+      value: searchString,
+      autoComplete: 'off',
+      onChange: handleOnChange,
+      onFocus: onClick,
+      'data-testid': 'DatepickerInput',
+    }),
+  )
+}
+var templateObject_1$3, templateObject_2, templateObject_3
+
+function calculateAngle(direction) {
+  switch (direction) {
+    case 'up':
+      return 0
+    case 'down':
+      return 180
+    case 'left':
+      return -90
+    case 'right':
+    default:
+      return 90
+  }
+}
+function ArrowIcon(_a) {
+  var height = _a.height,
+    width = _a.width,
+    iconColor = _a.iconColor,
+    _b = _a.direction,
+    direction = _b === void 0 ? 'right' : _b,
+    _c = _a.className,
+    className = _c === void 0 ? '' : _c
+  var angle = calculateAngle(direction)
+  return React__default.createElement(
+    'svg',
+    {
+      width: width,
+      height: height,
+      color: iconColor,
+      className: className,
+      transform: 'rotate(' + angle + ' 0 0)',
+      viewBox: '0 0 9 12',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    React__default.createElement('path', {
+      fill: 'currentColor',
+      d:
+        'M4.46.001a.538.538 0 0 0-.358.174L.156 4.48a.538.538 0 1 0 .796.724l3.01-3.285v13.689a.563.563 0 0 0 .538.55.563.563 0 0 0 .538-.55V1.918l3.01 3.286a.538.538 0 1 0 .796-.724L4.898.175a.538.538 0 0 0-.437-.174z',
+    }),
+  )
+}
+
+var composeStyles = compose(fontFamily, fontSize, fontWeight, color, lineHeight, space)
+var Text = styled__default('div')(
+  templateObject_1$4 || (templateObject_1$4 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  composeStyles,
+)
+var templateObject_1$4
+
+var StyledDate = styled__default(Text)(
+  templateObject_2$1 ||
+    (templateObject_2$1 = __makeTemplateObject(
+      [
+        "\n  position: relative;\n  display: inline-block;\n\n  &:after {\n    content: '';\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n  }\n\n  ",
+        '\n',
+      ],
+      [
+        "\n  position: relative;\n  display: inline-block;\n\n  &:after {\n    content: '';\n    position: absolute;\n    height: 2px;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: 1;\n  }\n\n  ",
+        '\n',
+      ],
+    )),
+  function (_a) {
+    var isActive = _a.isActive,
+      selectDateBorderColor = _a.selectDateBorderColor
+    return (
+      isActive &&
+      styled.css(
+        templateObject_1$5 ||
+          (templateObject_1$5 = __makeTemplateObject(
+            ['\n      &:after {\n        background: ', ';\n      }\n    '],
+            ['\n      &:after {\n        background: ', ';\n      }\n    '],
+          )),
+        selectDateBorderColor,
+      )
+    )
+  },
+)
+function SelectDate(_a) {
+  var title = _a.title,
+    isActive = _a.isActive,
+    date = _a.date,
+    vertical = _a.vertical
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    selectDateLabelFontSize: '11px',
+    selectDateLabelColor: getThemeProp(
+      'silverCloud',
+      globalStyles.colors.silverCloud,
+      themeContext,
+    ),
+    selectDateLabelMargin: '0 0 8px',
+    selectDateDateColor: getThemeProp('charcoal', globalStyles.colors.charcoal, themeContext),
+    selectDateDateFontSize: vertical ? '16px' : '24px',
+    selectDateDateFontWeight: 500,
+    selectDateDatePadding: '0 0 15px',
+    selectDateBorderColor: getThemeProp(
+      'primaryColor',
+      globalStyles.colors.primaryColor,
+      themeContext,
+    ),
+    selectDatePadding: '0',
+  })
+  return React__default.createElement(
+    Box,
+    {p: theme.selectDatePadding},
+    React__default.createElement(
+      Text,
+      {
+        fontFamily: theme.fontFamily,
+        fontSize: theme.selectDateLabelFontSize,
+        // @ts-ignore
+        color: theme.selectDateLabelColor,
+        m: theme.selectDateLabelMargin,
+      },
+      title,
+    ),
+    React__default.createElement(
+      StyledDate,
+      {
+        as: 'span',
+        // @ts-ignore
+        color: theme.selectDateDateColor,
+        fontSize: theme.selectDateDateFontSize,
+        fontWeight: theme.selectDateDateFontWeight,
+        fontFamily: theme.fontFamily,
+        p: theme.selectDateDatePadding,
+        isActive: isActive,
+        // @ts-ignore
+        selectDateBorderColor: theme.selectDateBorderColor,
+      },
+      date,
+    ),
+  )
+}
+var templateObject_1$5, templateObject_2$1
+
+var MonthLabel = function (_a) {
+  var label = _a.label
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    monthLabelColor: getThemeProp('darcula', globalStyles.colors.darcula, themeContext),
+    monthLabelLineHeight: 1.57,
+    monthLabelFontWeight: 600,
+    monthLabelFontSize: '14px',
+  })
+  return React__default.createElement(
+    Text,
+    {
+      fontFamily: theme.fontFamily,
+      fontSize: theme.monthLabelFontSize,
+      fontWeight: theme.monthLabelFontWeight,
+      lineHeight: theme.monthLabelLineHeight,
+      // @ts-ignore
+      color: theme.monthLabelColor,
+      'data-testid': 'MonthLabel',
+    },
+    label,
+  )
+}
+
+var MonthLabel$1 = function (_a) {
+  var label = _a.label
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    dayLabelColor: getThemeProp('silverCloud', globalStyles.colors.silverCloud, themeContext),
+    dayLabelFontWeight: 500,
+    dayLabelFontSize: '11px',
+  })
+  return React__default.createElement(
+    Text,
+    {
+      fontFamily: theme.fontFamily,
+      fontSize: theme.dayLabelFontSize,
+      fontWeight: theme.dayLabelFontWeight,
+      // @ts-ignore
+      color: theme.dayLabelColor,
+      'data-testid': 'DayLabel',
+    },
+    label,
+  )
+}
+
+var datepickerContextDefaultValue = {
+  rtl: false,
+  focusedDate: null,
+  isDateFocused: function () {
+    return false
+  },
+  isDateSelected: function () {
+    return false
+  },
+  isDateHovered: function () {
+    return false
+  },
+  isDateBlocked: function () {
+    return false
+  },
+  isFirstOrLastSelectedDate: function () {
+    return false
+  },
+  onDateFocus: function () {},
+  onDateHover: function () {},
+  onDateSelect: function () {},
+  onDayRender: undefined,
+}
+var DatepickerContext = React__default.createContext(datepickerContextDefaultValue)
+
+var dayHeight = style({
+  // React prop name and CSS property
+  prop: 'dayHeight',
+  // CSS property (if different from prop argument)
+  cssProperty: 'height',
+  // key for theme values
+  key: 'dayHeight',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return n + 'px'
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var dayWidth = style({
+  // React prop name and CSS property
+  prop: 'dayWidth',
+  // CSS property (if different from prop argument)
+  cssProperty: 'width',
+  // key for theme values
+  key: 'dayWidth',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return n + 'px'
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var dayHoverColor = style({
+  // React prop name and CSS property
+  prop: 'dayHoverColor',
+  // CSS property (if different from prop argument)
+  cssProperty: 'color',
+  // key for theme values
+  key: 'dayHoverColor',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return n
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var daySelectedHoverColor = style({
+  // React prop name and CSS property
+  prop: 'daySelectedHoverColor',
+  // CSS property (if different from prop argument)
+  cssProperty: 'color',
+  // key for theme values
+  key: 'daySelectedHoverColor',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return n
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var dayHoverBackground = style({
+  // React prop name and CSS property
+  prop: 'dayHoverBackground',
+  // CSS property (if different from prop argument)
+  cssProperty: 'background',
+  // key for theme values
+  key: 'dayHoverBackground',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return n
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var daySelectedHoverBackground = style({
+  // React prop name and CSS property
+  prop: 'daySelectedHoverBackground',
+  // CSS property (if different from prop argument)
+  cssProperty: 'background',
+  // key for theme values
+  key: 'daySelectedHoverBackground',
+  // accessor function for transforming the value
+  transformValue: function (n) {
+    return n
+  },
+  // add a fallback scale object or array, if theme is not present
+  scale: [0, 4, 8, 16, 32],
+})
+var composeStyledDayStyles = compose(shadow, background, color, fontFamily, fontWeight, fontSize)
+var StyledDay = styled__default('button')(
+  templateObject_5 ||
+    (templateObject_5 = __makeTemplateObject(
+      [
+        '\n  ',
+        '\n  ',
+        '\n  ',
+        '\n  cursor: pointer;\n  border: 0;\n  padding: 0;\n  outline: 0;\n\n  ',
+        '\n\n  // @ts-ignore\n  ',
+        '\n\n  &:focus {\n    // @ts-ignore\n    ',
+        '\n  }\n',
+      ],
+      [
+        '\n  ',
+        '\n  ',
+        '\n  ',
+        '\n  cursor: pointer;\n  border: 0;\n  padding: 0;\n  outline: 0;\n\n  ',
+        '\n\n  // @ts-ignore\n  ',
+        '\n\n  &:focus {\n    // @ts-ignore\n    ',
+        '\n  }\n',
+      ],
+    )),
+  dayHeight,
+  dayWidth,
+  composeStyledDayStyles,
+  function (_a) {
+    var disabledDate = _a.disabledDate,
+      isSelectedStartOrEnd = _a.isSelectedStartOrEnd
+    return (
+      disabledDate &&
+      !isSelectedStartOrEnd &&
+      styled.css(
+        templateObject_1$6 ||
+          (templateObject_1$6 = __makeTemplateObject(
+            ['\n      cursor: initial;\n      opacity: 0.4;\n    '],
+            ['\n      cursor: initial;\n      opacity: 0.4;\n    '],
+          )),
+      )
+    )
+  },
+  function (_a) {
+    var disabledDate = _a.disabledDate,
+      isSelected = _a.isSelected,
+      isSelectedStartOrEnd = _a.isSelectedStartOrEnd,
+      isWithinHoverRange = _a.isWithinHoverRange
+    if (!disabledDate && !isSelected && !isSelectedStartOrEnd && !isWithinHoverRange) {
+      return styled.css(
+        templateObject_2$2 ||
+          (templateObject_2$2 = __makeTemplateObject(
+            ['\n        &:hover {\n          ', '\n          ', '\n        }\n      '],
+            ['\n        &:hover {\n          ', '\n          ', '\n        }\n      '],
+          )),
+        dayHoverBackground,
+        dayHoverColor,
+      )
+    } else if (isSelected && !isSelectedStartOrEnd) {
+      return styled.css(
+        templateObject_3$1 ||
+          (templateObject_3$1 = __makeTemplateObject(
+            ['\n        &:hover {\n          ', '\n          ', '\n        }\n      '],
+            ['\n        &:hover {\n          ', '\n          ', '\n        }\n      '],
+          )),
+        daySelectedHoverBackground,
+        daySelectedHoverColor,
+      )
+    }
+    return ''
+  },
+  function (_a) {
+    var borderAccessibilityColor = _a.borderAccessibilityColor
+    return styled.css(
+      templateObject_4 ||
+        (templateObject_4 = __makeTemplateObject(
+          ['\n      box-shadow: none;\n      border: 2px solid ', ';\n    '],
+          ['\n      box-shadow: none;\n      border: 2px solid ', ';\n    '],
+        )),
+      borderAccessibilityColor,
+    )
+  },
+)
+function getColor(isSelected, isSelectedStartOrEnd, isWithinHoverRange, _a) {
+  var selectedFirstOrLast = _a.selectedFirstOrLast,
+    normal = _a.normal,
+    selected = _a.selected,
+    rangeHover = _a.rangeHover
+  if (isSelectedStartOrEnd) {
+    return selectedFirstOrLast
+  } else if (isSelected) {
+    return selected
+  } else if (isWithinHoverRange) {
+    return rangeHover
+  } else {
+    return normal
+  }
+}
+function Day(_a) {
+  var day = _a.day,
+    date = _a.date
+  var dayRef = React.useRef(null)
+  var _b = React.useContext(DatepickerContext),
+    focusedDate = _b.focusedDate,
+    isDateFocused = _b.isDateFocused,
+    isDateSelected = _b.isDateSelected,
+    isDateHovered = _b.isDateHovered,
+    isDateBlocked = _b.isDateBlocked,
+    isFirstOrLastSelectedDate = _b.isFirstOrLastSelectedDate,
+    onDateSelect = _b.onDateSelect,
+    onDateFocus = _b.onDateFocus,
+    onDateHover = _b.onDateHover,
+    onDayRender = _b.onDayRender
+  var dayProps = useDay({
+    date: date,
+    focusedDate: focusedDate,
+    isDateFocused: isDateFocused,
+    isDateSelected: isDateSelected,
+    isDateHovered: isDateHovered,
+    isDateBlocked: isDateBlocked,
+    isFirstOrLastSelectedDate: isFirstOrLastSelectedDate,
+    onDateFocus: onDateFocus,
+    onDateSelect: onDateSelect,
+    onDateHover: onDateHover,
+    dayRef: dayRef,
+  })
+  var themeContext = React.useContext(styled.ThemeContext)
+  var white = getThemeProp('white', globalStyles.colors.white, themeContext)
+  var mud = getThemeProp('mud', globalStyles.colors.mud, themeContext)
+  var primaryColor = getThemeProp('primaryColor', globalStyles.colors.primaryColor, themeContext)
+  var accessibility = getThemeProp('accessibility', globalStyles.colors.accessibility, themeContext)
+  var selectedDay = getThemeProp('selectedDay', globalStyles.colors.selectedDay, themeContext)
+  var selectedDayHover = getThemeProp(
+    'selectedDayHover',
+    globalStyles.colors.selectedDayHover,
+    themeContext,
+  )
+  var normalDayHover = getThemeProp(
+    'normalDayHover',
+    globalStyles.colors.normalDayHover,
+    themeContext,
+  )
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    daySize: globalStyles.daySize,
+    dayFontWeight: 500,
+    dayFontSize: '14px',
+    dayColor: mud,
+    dayHoverColor: mud,
+    daySelectedColor: white,
+    daySelectedHoverColor: white,
+    dayHoverRangeColor: white,
+    daySelectedFirstOrLastColor: white,
+    dayBackground: white,
+    dayHoverBackground: normalDayHover,
+    daySelectedBackground: selectedDay,
+    daySelectedHoverBackground: selectedDayHover,
+    dayHoverRangeBackground: selectedDay,
+    daySelectedFirstOrLastBackground: primaryColor,
+    dayBorderColor: normalDayHover,
+    daySelectedBorderColor: selectedDay,
+    dayHoverRangeBorderColor: selectedDay,
+    daySelectedFirstOrLastBorderColor: primaryColor,
+    dayAccessibilityBorderColor: accessibility,
+  })
+  var borderColor = React.useMemo(
+    function () {
+      return getColor(
+        dayProps.isSelected,
+        dayProps.isSelectedStartOrEnd,
+        dayProps.isWithinHoverRange,
+        {
+          // @ts-ignore
+          selectedFirstOrLast: theme.daySelectedFirstOrLastBorderColor,
+          // @ts-ignore
+          selected: theme.daySelectedBorderColor,
+          // @ts-ignore
+          normal: theme.dayBorderColor,
+          // @ts-ignore
+          rangeHover: theme.dayHoverRangeColor,
+        },
+      )
+    },
+    [dayProps.isSelected, dayProps.isSelectedStartOrEnd, theme, dayProps.isWithinHoverRange],
+  )
+  var background = React.useMemo(
+    function () {
+      return getColor(
+        dayProps.isSelected,
+        dayProps.isSelectedStartOrEnd,
+        dayProps.isWithinHoverRange,
+        {
+          // @ts-ignore
+          selectedFirstOrLast: theme.daySelectedFirstOrLastBackground,
+          // @ts-ignore
+          selected: theme.daySelectedBackground,
+          // @ts-ignore
+          normal: theme.dayBackground,
+          // @ts-ignore
+          rangeHover: theme.dayHoverRangeBackground,
+        },
+      )
+    },
+    [dayProps.isSelected, dayProps.isSelectedStartOrEnd, theme, dayProps.isWithinHoverRange],
+  )
+  var color = React.useMemo(
+    function () {
+      return getColor(
+        dayProps.isSelected,
+        dayProps.isSelectedStartOrEnd,
+        dayProps.isWithinHoverRange,
+        {
+          // @ts-ignore
+          selectedFirstOrLast: theme.daySelectedFirstOrLastColor,
+          // @ts-ignore
+          selected: theme.daySelectedColor,
+          // @ts-ignore
+          normal: theme.dayColor,
+          // @ts-ignore
+          rangeHover: theme.dayHoverRangeColor,
+        },
+      )
+    },
+    [dayProps.isSelected, dayProps.isSelectedStartOrEnd, theme, dayProps.isWithinHoverRange],
+  )
+  return React__default.createElement(
+    StyledDay,
+    __assign({}, dayProps, {
+      ref: dayRef,
+      dayHeight: theme.daySize,
+      dayWidth: theme.daySize,
+      background: background,
+      // @ts-ignore
+      color: color,
+      fontFamily: theme.fontFamily,
+      fontWeight: theme.dayFontWeight,
+      fontSize: theme.dayFontSize,
+      // @ts-ignore
+      daySelectedHoverBackground: theme.daySelectedHoverBackground,
+      // @ts-ignore
+      dayHoverBackground: theme.dayHoverBackground,
+      // @ts-ignore
+      dayHoverColor: theme.dayHoverColor,
+      // @ts-ignore
+      daySelectedHoverColor: theme.daySelectedHoverColor,
+      // @ts-ignore
+      borderAccessibilityColor: theme.dayAccessibilityBorderColor,
+      boxShadow:
+        '1px 0 0 0 ' +
+        borderColor +
+        ',\n        0 1px 0 0 ' +
+        borderColor +
+        ',\n        1px 1px 0 0 ' +
+        borderColor +
+        ',\n        1px 0 0 0 ' +
+        borderColor +
+        ' inset,\n        0 1px 0 0 ' +
+        borderColor +
+        ' inset',
+      'data-testid': 'Day',
+      'aria-label': 'Day-' + date.toDateString(),
+      type: 'button',
+    }),
+    typeof onDayRender === 'function'
+      ? onDayRender(date)
+      : React__default.createElement(
+          Flex,
+          {justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%'},
+          day,
+        ),
+  )
+}
+var templateObject_1$6, templateObject_2$2, templateObject_3$1, templateObject_4, templateObject_5
+
+var opacity0To100 = styled.keyframes(
+  templateObject_1$7 ||
+    (templateObject_1$7 = __makeTemplateObject(
+      ['\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n'],
+      ['\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n'],
+    )),
+)
+var MonthWrapper = styled__default('div')(
+  templateObject_2$3 ||
+    (templateObject_2$3 = __makeTemplateObject(
+      [
+        '\n  animation-name: ',
+        ';\n  animation-duration: 0.25s;\n  animation-timing-function: ease-in;\n\n  &:last-child {\n    padding: 0 1px 1px 0;\n  }\n',
+      ],
+      [
+        '\n  animation-name: ',
+        ';\n  animation-duration: 0.25s;\n  animation-timing-function: ease-in;\n\n  &:last-child {\n    padding: 0 1px 1px 0;\n  }\n',
+      ],
+    )),
+  opacity0To100,
+)
+var Month = function (_a) {
+  var year = _a.year,
+    month = _a.month,
+    firstDayOfWeek = _a.firstDayOfWeek,
+    dayLabelFormat = _a.dayLabelFormat,
+    monthLabelFormat = _a.monthLabelFormat,
+    weekdayLabelFormat = _a.weekdayLabelFormat
+  var _b = useMonth({
+      dayLabelFormat: dayLabelFormat,
+      monthLabelFormat: monthLabelFormat,
+      weekdayLabelFormat: weekdayLabelFormat,
+      year: year,
+      month: month,
+      firstDayOfWeek: firstDayOfWeek,
+    }),
+    days = _b.days,
+    weekdayLabels = _b.weekdayLabels,
+    monthLabel = _b.monthLabel
+  var theme = useThemeProps({
+    daySize: globalStyles.daySize,
+    monthLabelMargin: '0 0 28px',
+    monthDayLabelMargin: '0 0 16px',
+  })
+  return React__default.createElement(
+    MonthWrapper,
+    null,
+    React__default.createElement(
+      Flex,
+      {justifyContent: 'center', m: theme.monthLabelMargin},
+      React__default.createElement(MonthLabel, {label: monthLabel}),
+    ),
+    React__default.createElement(
+      Grid,
+      {daySizeGridTemplateColumns: theme.daySize},
+      weekdayLabels.map(function (weekdayLabel) {
+        return React__default.createElement(
+          Flex,
+          {key: weekdayLabel, justifyContent: 'center', m: theme.monthDayLabelMargin},
+          React__default.createElement(MonthLabel$1, {label: weekdayLabel}),
+        )
+      }),
+    ),
+    React__default.createElement(
+      Grid,
+      {daySizeGridTemplateColumns: theme.daySize},
+      days.map(function (day, index) {
+        if (typeof day === 'object') {
+          return React__default.createElement(Day, {
+            date: day.date,
+            key: day.dayLabel,
+            day: day.dayLabel,
+          })
+        }
+        return React__default.createElement('div', {key: index})
+      }),
+    ),
+  )
+}
+var templateObject_1$7, templateObject_2$3
+
+function CaretIcon(_a) {
+  var height = _a.height,
+    width = _a.width,
+    color = _a.color,
+    _b = _a.className,
+    className = _b === void 0 ? '' : _b
+  return React__default.createElement(
+    'svg',
+    {
+      width: width,
+      height: height,
+      color: color,
+      className: className,
+      viewBox: '0 0 14 14',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    React__default.createElement('path', {
+      fill: 'currentColor',
+      fillRule: 'nonzero',
+      d:
+        'M9.015 11.15c-.027-.18-.04-.39-.067-.585a3.958 3.958 0 0 1-4.48-.056C2.663 9.241 2.142 6.663 3.292 4.74c1.217-2.02 3.797-2.592 5.696-1.282.589.404 1.03.934 1.35 1.533l-1.216.808L13 7.917l-.174-4.556-1.056.696a5.812 5.812 0 0 0-1.846-2.062C7.25.155 3.64.935 1.901 3.765c-1.672 2.717-.95 6.382 1.605 8.194a5.535 5.535 0 0 0 5.616.501c0-.083 0-.167-.013-.264a9.193 9.193 0 0 0-.094-1.046z',
+    }),
+  )
+}
+
+var StyledReactDates = styled__default('button')(
+  templateObject_1$8 ||
+    (templateObject_1$8 = __makeTemplateObject(
+      [
+        '\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border: 0;\n  background: transparent;\n  padding: 0;\n\n  &:hover {\n    text-decoration: underline;\n  }\n',
+      ],
+      [
+        '\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  border: 0;\n  background: transparent;\n  padding: 0;\n\n  &:hover {\n    text-decoration: underline;\n  }\n',
+      ],
+    )),
+)
+var RedoIconStyle = styled__default(CaretIcon)(
+  templateObject_3$2 || (templateObject_3$2 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  function (_a) {
+    var rtl = _a.rtl
+    return (
+      rtl &&
+      styled.css(
+        templateObject_2$4 ||
+          (templateObject_2$4 = __makeTemplateObject(
+            ['\n      transform: rotate(-180deg);\n    '],
+            ['\n      transform: rotate(-180deg);\n    '],
+          )),
+      )
+    )
+  },
+)
+function ResetDates(_a) {
+  var onResetDates = _a.onResetDates,
+    text = _a.text,
+    rtl = _a.rtl
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    resetDatesIconColor: getThemeProp('mud', globalStyles.colors.mud, themeContext),
+    resetDatesIconHeight: '14px',
+    resetDatesIconWidth: '14px',
+    resetDatesTextColor: getThemeProp('darcula', globalStyles.colors.darcula, themeContext),
+    resetDatesTextMargin: rtl ? '1px 8px 0 0' : '1px 0 0 8px',
+    resetDatesTextLineHeight: 1.18,
+    resetDatesTextFontSize: '11px',
+  })
+  function handleMouseUp(e) {
+    // @ts-ignore
+    e.currentTarget.blur()
+  }
+  return React__default.createElement(
+    StyledReactDates,
+    {'aria-label': 'Reset dates', tabIndex: -1, onClick: onResetDates, onMouseUp: handleMouseUp},
+    React__default.createElement(
+      RedoIconStyle,
+      // @ts-ignore
+      {
+        // @ts-ignore
+        height: theme.resetDatesIconHeight,
+        // @ts-ignore
+        width: theme.resetDatesIconWidth,
+        // @ts-ignore
+        color: theme.resetDatesIconColor,
+        rtl: rtl,
+      },
+    ),
+    React__default.createElement(
+      Text,
+      {
+        m: theme.resetDatesTextMargin,
+        lineHeight: theme.resetDatesTextLineHeight,
+        fontFamily: theme.fontFamily,
+        fontSize: theme.resetDatesTextFontSize,
+        // @ts-ignore
+        color: theme.resetDatesTextColor,
+      },
+      text,
+    ),
+  )
+}
+var templateObject_1$8, templateObject_2$4, templateObject_3$2
+
+var Svg = styled__default('svg')(
+  templateObject_2$5 || (templateObject_2$5 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  function (_a) {
+    var angle = _a.angle
+    return styled.css(
+      templateObject_1$9 ||
+        (templateObject_1$9 = __makeTemplateObject(
+          ['\n      transform: rotate(', 'deg);\n    '],
+          ['\n      transform: rotate(', 'deg);\n    '],
+        )),
+      angle,
+    )
+  },
+)
+function calculateAngle$1(direction) {
+  switch (direction) {
+    case 'up':
+      return 180
+    case 'down':
+      return 0
+    case 'left':
+      return 90
+    case 'right':
+    default:
+      return -90
+  }
+}
+function CaretIcon$1(_a) {
+  var height = _a.height,
+    width = _a.width,
+    color = _a.color,
+    _b = _a.direction,
+    direction = _b === void 0 ? 'right' : _b,
+    _c = _a.className,
+    className = _c === void 0 ? '' : _c
+  var angle = calculateAngle$1(direction)
+  return React__default.createElement(
+    Svg,
+    {
+      width: width,
+      height: height,
+      color: color,
+      className: className,
+      angle: angle,
+      viewBox: '0 0 9 6',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    React__default.createElement('path', {
+      fill: 'currentColor',
+      fillRule: 'evenodd',
+      d:
+        'M4.058 4.594L1.185 1.72a.312.312 0 1 1 .442-.442L4.5 4.152l2.873-2.873a.312.312 0 1 1 .442.442L4.723 4.812a.316.316 0 0 1-.446 0l-.219-.218z',
+    }),
+  )
+}
+var templateObject_1$9, templateObject_2$5
+
+var composeSyles = compose(width, height, background, space, border)
+var StyledNavButton = styled__default('button')(
+  templateObject_1$a ||
+    (templateObject_1$a = __makeTemplateObject(
+      ['\n  ', '\n  display: flex;\n  justify-content: center;\n  align-items: center;\n'],
+      ['\n  ', '\n  display: flex;\n  justify-content: center;\n  align-items: center;\n'],
+    )),
+  composeSyles,
+)
+function NavButton(_a) {
+  var type = _a.type,
+    onClick = _a.onClick,
+    vertical = _a.vertical,
+    rtl = _a.rtl,
+    ariaLabel = _a.ariaLabel
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    navButtonWidth: vertical ? '48px' : '30px',
+    navButtonHeight: vertical ? '48px' : '30px',
+    navButtonBackground: getThemeProp('white', globalStyles.colors.white, themeContext),
+    navButtonBorder:
+      '1px solid ' + getThemeProp('silverCloud', globalStyles.colors.silverCloud, themeContext),
+    navButtonPadding: '0',
+    navButtonIconHeight: vertical ? '18px' : '11px',
+    navButtonIconWidth: vertical ? '28px' : '18px',
+    navButtonIconColor: getThemeProp('greey', globalStyles.colors.greey, themeContext),
+  })
+  function handleMouseUp(e) {
+    // @ts-ignore
+    e.currentTarget.blur()
+  }
+  function getDirection() {
+    if (type === 'next' && !vertical) {
+      return 'right'
+    } else if (type === 'next' && vertical) {
+      return 'down'
+    } else if (type === 'prev' && !vertical) {
+      return 'left'
+    }
+    return 'up'
+  }
+  return React__default.createElement(
+    StyledNavButton,
+    {
+      width: theme.navButtonWidth,
+      height: theme.navButtonHeight,
+      background: theme.navButtonBackground,
+      border: theme.navButtonBorder,
+      borderRight: getDirection() === 'up' && !rtl ? 'unset' : theme.navButtonBorder,
+      borderLeft: getDirection() === 'up' && rtl ? 'unset' : theme.navButtonBorder,
+      p: theme.navButtonPadding,
+      type: 'button',
+      'aria-label': ariaLabel,
+      onClick: onClick,
+      onMouseUp: handleMouseUp,
+      'data-testid': 'DatepickerNavButton',
+    },
+    React__default.createElement(
+      CaretIcon$1,
+      // @ts-ignore
+      {
+        // @ts-ignore
+        width: theme.navButtonIconWidth,
+        // @ts-ignore
+        height: theme.navButtonIconHeight,
+        // @ts-ignore
+        color: theme.navButtonIconColor,
+        direction: getDirection(),
+      },
+    ),
+  )
+}
+var templateObject_1$a
+
+function CloseIcon(_a) {
+  var height = _a.height,
+    width = _a.width,
+    color = _a.color,
+    _b = _a.className,
+    className = _b === void 0 ? '' : _b
+  return React__default.createElement(
+    'svg',
+    {
+      width: width,
+      height: height,
+      color: color,
+      className: className,
+      viewBox: '0 0 15 16',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    React__default.createElement('path', {
+      fill: 'currentColor',
+      fillRule: 'nonzero',
+      d:
+        'M14.69.263a.802.802 0 0 0-1.187 0L7.47 6.694 1.433.262a.802.802 0 0 0-1.187 0 .938.938 0 0 0 0 1.267L6.28 7.96.246 14.392a.937.937 0 0 0 0 1.266.81.81 0 0 0 .594.262.81.81 0 0 0 .593-.262l6.035-6.432 6.035 6.432a.812.812 0 0 0 .593.262.81.81 0 0 0 .594-.262.937.937 0 0 0 0-1.266L8.656 7.96l6.034-6.43a.937.937 0 0 0 0-1.267z',
+    }),
+  )
+}
+
+var composeTextStyles = compose(space, color, fontSize, fontFamily, fontWeight)
+var Text$1 = styled__default('div')(
+  templateObject_1$b ||
+    (templateObject_1$b = __makeTemplateObject(
+      ['\n  ', '\n  float: left;\n  transition: color 0.15s;\n'],
+      ['\n  ', '\n  float: left;\n  transition: color 0.15s;\n'],
+    )),
+  composeTextStyles,
+)
+var Wrapper = styled__default('button')(
+  templateObject_2$6 ||
+    (templateObject_2$6 = __makeTemplateObject(
+      [
+        '\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  background: transparent;\n  padding: 0;\n  border: 0;\n\n  svg {\n    transition: color 0.15s;\n  }\n\n  &:hover {\n    ',
+        ' {\n      ',
+        '\n    }\n\n    svg {\n      ',
+        '\n    }\n  }\n',
+      ],
+      [
+        '\n  display: flex;\n  align-items: center;\n  cursor: pointer;\n  background: transparent;\n  padding: 0;\n  border: 0;\n\n  svg {\n    transition: color 0.15s;\n  }\n\n  &:hover {\n    ',
+        ' {\n      ',
+        '\n    }\n\n    svg {\n      ',
+        '\n    }\n  }\n',
+      ],
+    )),
+  Text$1,
+  color,
+  color,
+)
+function Close(_a) {
+  var onClick = _a.onClick,
+    rtl = _a.rtl,
+    closeText = _a.closeText
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    fontFamily: globalStyles.fontFamily,
+    closeMargin: rtl ? '1px 16px 0 0' : '1px 0 0 16px',
+    closeColor: getThemeProp('silverCloud', globalStyles.colors.silverCloud, themeContext),
+    closeHoverColor: getThemeProp('darcula', globalStyles.colors.darcula, themeContext),
+    closeFontSize: '12px',
+    closeFontWeight: 600,
+  })
+  return React__default.createElement(
+    Wrapper,
+    {
+      onClick: onClick,
+      // @ts-ignore
+      color: theme.closeHoverColor,
+      'data-testid': 'DatepickerClose',
+      tabIndex: -1,
+      'aria-label': 'Close',
+    },
+    React__default.createElement(CloseIcon, {width: '15px', height: '16px', color: '#ADADAD'}),
+    React__default.createElement(
+      Text$1,
+      {
+        m: theme.closeMargin,
+        // @ts-ignore
+        color: theme.closeColor,
+        fontSize: theme.closeFontSize,
+        fontFamily: theme.fontFamily,
+        fontWeight: theme.closeFontWeight,
+      },
+      closeText,
+    ),
+  )
+}
+var templateObject_1$b, templateObject_2$6
+
+var opacity0To100$1 = styled.keyframes(
+  templateObject_1$c ||
+    (templateObject_1$c = __makeTemplateObject(
+      ['\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n'],
+      ['\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n'],
+    )),
+)
+var composeStyledDatepickerStyles = compose(
+  background,
+  space,
+  borderRadius,
+  position,
+  shadow,
+  width,
+  zIndex,
+)
+var StyledDatepicker = styled__default('div')(
+  templateObject_3$3 ||
+    (templateObject_3$3 = __makeTemplateObject(
+      [
+        '\n  ',
+        '\n  ',
+        '\n\n  animation-name: ',
+        ';\n  animation-duration: 0.15s;\n  animation-timing-function: ease-in;\n',
+      ],
+      [
+        '\n  ',
+        '\n  ',
+        '\n\n  animation-name: ',
+        ';\n  animation-duration: 0.15s;\n  animation-timing-function: ease-in;\n',
+      ],
+    )),
+  composeStyledDatepickerStyles,
+  function (_a) {
+    var rtl = _a.rtl
+    return (
+      rtl &&
+      styled.css(
+        templateObject_2$7 ||
+          (templateObject_2$7 = __makeTemplateObject(
+            ['\n      direction: rtl;\n    '],
+            ['\n      direction: rtl;\n    '],
+          )),
+      )
+    )
+  },
+  opacity0To100$1,
+)
+var DateWrapper = styled__default('div')(
+  templateObject_4$1 ||
+    (templateObject_4$1 = __makeTemplateObject(
+      [
+        "\n  position: relative;\n  width: 100%;\n\n  &:after {\n    content: '';\n    position: absolute;\n    height: 1px;\n    width: 100%;\n    background: #e6e7e8;\n    bottom: 0;\n    left: 0;\n  }\n",
+      ],
+      [
+        "\n  position: relative;\n  width: 100%;\n\n  &:after {\n    content: '';\n    position: absolute;\n    height: 1px;\n    width: 100%;\n    background: #e6e7e8;\n    bottom: 0;\n    left: 0;\n  }\n",
+      ],
+    )),
+)
+var composeCloseWrapperStyles = compose(display, justifyContent)
+var CloseWrapper = styled__default(Box)(
+  templateObject_5$1 || (templateObject_5$1 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  composeCloseWrapperStyles,
+)
+var composeMonthGridStyles = compose(overflow, height)
+var MonthGrid = styled__default(Grid)(
+  templateObject_6 || (templateObject_6 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  composeMonthGridStyles,
+)
+function Datepicker(_a, ref) {
+  var startDate = _a.startDate,
+    endDate = _a.endDate,
+    minBookingDate = _a.minBookingDate,
+    maxBookingDate = _a.maxBookingDate,
+    focusedInput = _a.focusedInput,
+    onDatesChange = _a.onDatesChange,
+    dayLabelFormat = _a.dayLabelFormat,
+    weekdayLabelFormat = _a.weekdayLabelFormat,
+    monthLabelFormat = _a.monthLabelFormat,
+    onDayRender = _a.onDayRender,
+    initialVisibleMonth = _a.initialVisibleMonth,
+    _b = _a.vertical,
+    vertical = _b === void 0 ? false : _b,
+    _c = _a.rtl,
+    rtl = _c === void 0 ? false : _c,
+    _d = _a.showResetDates,
+    showResetDates = _d === void 0 ? true : _d,
+    _e = _a.showClose,
+    showClose = _e === void 0 ? true : _e,
+    _f = _a.showSelectedDates,
+    showSelectedDates = _f === void 0 ? true : _f,
+    _g = _a.exactMinBookingDays,
+    exactMinBookingDays = _g === void 0 ? false : _g,
+    _h = _a.isDateBlocked,
+    isDateBlocked =
+      _h === void 0
+        ? function () {
+            return false
+          }
+        : _h,
+    _j = _a.minBookingDays,
+    minBookingDays = _j === void 0 ? 1 : _j,
+    _k = _a.onClose,
+    onClose = _k === void 0 ? function () {} : _k,
+    numberOfMonthsProp = _a.numberOfMonths,
+    firstDayOfWeekProp = _a.firstDayOfWeek,
+    _l = _a.displayFormat,
+    displayFormat = _l === void 0 ? 'MM/dd/yyyy' : _l,
+    _m = _a.phrases,
+    phrases = _m === void 0 ? datepickerPhrases : _m,
+    _o = _a.unavailableDates,
+    unavailableDates = _o === void 0 ? [] : _o
+  var _p = useDatepicker({
+      startDate: startDate,
+      endDate: endDate,
+      focusedInput: focusedInput,
+      onDatesChange: onDatesChange,
+      minBookingDate: minBookingDate,
+      maxBookingDate: maxBookingDate,
+      minBookingDays: minBookingDays,
+      isDateBlocked: isDateBlocked,
+      exactMinBookingDays: exactMinBookingDays,
+      unavailableDates: unavailableDates,
+      initialVisibleMonth: initialVisibleMonth,
+      numberOfMonths: numberOfMonthsProp,
+      firstDayOfWeek: firstDayOfWeekProp,
+    }),
+    activeMonths = _p.activeMonths,
+    isDateSelected = _p.isDateSelected,
+    isFirstOrLastSelectedDate = _p.isFirstOrLastSelectedDate,
+    isDateHovered = _p.isDateHovered,
+    firstDayOfWeek = _p.firstDayOfWeek,
+    onDateSelect = _p.onDateSelect,
+    onResetDates = _p.onResetDates,
+    goToPreviousMonths = _p.goToPreviousMonths,
+    goToNextMonths = _p.goToNextMonths,
+    numberOfMonths = _p.numberOfMonths,
+    hoveredDate = _p.hoveredDate,
+    onDateHover = _p.onDateHover,
+    isDateFocused = _p.isDateFocused,
+    focusedDate = _p.focusedDate,
+    onDateFocus = _p.onDateFocus,
+    isDateBlockedFn = _p.isDateBlocked
+  React.useImperativeHandle(ref, function () {
+    return {
+      onDateSelect: function (date) {
+        onDateSelect(date)
+      },
+    }
+  })
+  var monthGridRef = React.useRef(null)
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps({
+    datepickerZIndex: null,
+    datepickerBackground: '#ffffff',
+    datepickerPadding: vertical ? '16px 16px 0' : '32px',
+    datepickerBorderRadius: '2px',
+    datepickerPosition: 'relative',
+    datepickerWidth: 'fit-content',
+    datepickerCloseWrapperPosition: vertical ? 'relative' : 'absolute',
+    datepickerCloseWrapperDisplay: vertical ? 'flex' : 'block',
+    datepickerCloseWrapperJustifyContent: vertical ? 'flex-end' : 'initial',
+    datepickerCloseWrapperMargin: vertical ? '0 0 16px' : '0',
+    datepickerCloseWrapperRight: rtl ? 'unset' : vertical ? '0' : '32px',
+    datepickerCloseWrapperTop: 'unset',
+    datepickerCloseWrapperLeft: rtl ? '32px' : 'unset',
+    datepickerCloseWrapperBottom: 'unset',
+    datepickerCloseWrapperZIndex: 1,
+    datepickerSelectDateGridTemplateColumns: vertical ? '87px 50px 87px' : '126px 75px 126px',
+    datepickerSelectDateGridTemplateRows: 'unset',
+    datepickerSelectDateArrowIconWidth: '15px',
+    datepickerSelectDateArrowIconHeight: '12px',
+    datepickerSelectDateArrowIconColor: getThemeProp(
+      'silverCloud',
+      globalStyles.colors.silverCloud,
+      themeContext,
+    ),
+    datepickerMonthsWrapperMargin:
+      !showClose && !showSelectedDates ? 'unset' : !showSelectedDates ? '48px 0 0' : '28px 0 0',
+    datepickerPreviousMonthButtonPosition: vertical ? 'relative' : 'absolute',
+    datepickerPreviousMonthButtonTop: vertical ? 'unset' : '-5px',
+    datepickerPreviousMonthButtonLeft: vertical ? 'unset' : '0',
+    datepickerPreviousMonthButtonRight: 'unset',
+    datepickerPreviousMonthButtonBottom: 'unset',
+    datepickerNextMonthButtonPosition: vertical ? 'relative' : 'absolute',
+    datepickerNextMonthButtonTop: vertical ? 'unset' : '-5px',
+    datepickerNextMonthButtonLeft: 'unset',
+    datepickerNextMonthButtonRight: vertical ? 'unset' : '0',
+    datepickerNextMonthButtonBottom: 'unset',
+    datepickerMonthsGridGap: vertical ? '32px' : '0 32px',
+    datepickerMonthsGridOverflow: 'auto',
+    datepickerMonthsGridHeight: vertical ? '50vh' : '100%',
+    datepickerResetDatesWrapperMargin: vertical ? 'unset' : '32px 0 0',
+    datepickerBoxShadow: 'rgba(0, 0, 0, 0.05) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px',
+  })
+  function scrollTopToMonthGrid() {
+    if (monthGridRef && monthGridRef.current && vertical) {
+      monthGridRef.current.scrollTop = 0
+    }
+  }
+  function handleGoToNextMonth() {
+    goToNextMonths()
+    scrollTopToMonthGrid()
+  }
+  function handleGoToPreviousMonth() {
+    goToPreviousMonths()
+    scrollTopToMonthGrid()
+  }
+  return React__default.createElement(
+    styled.ThemeProvider,
+    {
+      theme: function (theme) {
+        return theme || {}
+      },
+    },
+    React__default.createElement(
+      DatepickerContext.Provider,
+      {
+        value: {
+          rtl: rtl,
+          isDateFocused: isDateFocused,
+          isDateSelected: isDateSelected,
+          isDateHovered: isDateHovered,
+          isFirstOrLastSelectedDate: isFirstOrLastSelectedDate,
+          onDateFocus: onDateFocus,
+          focusedDate: focusedDate,
+          onDateSelect: onDateSelect,
+          onDateHover: onDateHover,
+          onDayRender: onDayRender,
+          isDateBlocked: isDateBlockedFn,
+        },
+      },
+      React__default.createElement(
+        StyledDatepicker,
+        {
+          background: theme.datepickerBackground,
+          p: theme.datepickerPadding,
+          borderRadius: theme.datepickerBorderRadius,
+          position: theme.datepickerPosition,
+          boxShadow: theme.datepickerBoxShadow,
+          width: theme.datepickerWidth,
+          zIndex: theme.datepickerZIndex,
+          rtl: rtl,
+        },
+        showClose &&
+          React__default.createElement(
+            CloseWrapper,
+            {
+              m: theme.datepickerCloseWrapperMargin,
+              display: theme.datepickerCloseWrapperDisplay,
+              justifyContent: theme.datepickerCloseWrapperJustifyContent,
+              position: theme.datepickerCloseWrapperPosition,
+              right: theme.datepickerCloseWrapperRight,
+              top: theme.datepickerCloseWrapperTop,
+              left: theme.datepickerCloseWrapperLeft,
+              bottom: theme.datepickerCloseWrapperBottom,
+              zIndex: theme.datepickerCloseWrapperZIndex,
+            },
+            React__default.createElement(Close, {
+              onClick: onClose,
+              rtl: rtl,
+              closeText: phrases.close,
+            }),
+          ),
+        showSelectedDates &&
+          React__default.createElement(
+            DateWrapper,
+            null,
+            React__default.createElement(
+              Grid,
+              {
+                'data-testid': 'SelectedDatesGrid',
+                gridTemplateColumns: theme.datepickerSelectDateGridTemplateColumns,
+                gridTemplateRows: theme.datepickerSelectDateGridTemplateRows,
+              },
+              React__default.createElement(SelectDate, {
+                title: phrases.datepickerStartDateLabel,
+                date: getInputValue(
+                  startDate,
+                  displayFormat,
+                  phrases.datepickerStartDatePlaceholder,
+                ),
+                isActive: focusedInput === START_DATE,
+                vertical: vertical,
+              }),
+              React__default.createElement(
+                Flex,
+                {justifyContent: 'center', alignItems: 'center'},
+                React__default.createElement(
+                  ArrowIcon,
+                  // @ts-ignore
+                  {
+                    // @ts-ignore
+                    height: theme.datepickerSelectDateArrowIconHeight,
+                    // @ts-ignore
+                    width: theme.datepickerSelectDateArrowIconWidth,
+                    // @ts-ignore
+                    iconColor: theme.datepickerSelectDateArrowIconColor,
+                  },
+                ),
+              ),
+              React__default.createElement(SelectDate, {
+                title: phrases.datepickerEndDateLabel,
+                date: getInputValue(endDate, displayFormat, phrases.datepickerEndDatePlaceholder),
+                isActive: focusedInput === END_DATE,
+                vertical: vertical,
+              }),
+            ),
+          ),
+        React__default.createElement(
+          Box,
+          {position: 'relative'},
+          React__default.createElement(
+            Box,
+            {m: theme.datepickerMonthsWrapperMargin},
+            React__default.createElement(
+              MonthGrid,
+              {
+                'data-testid': 'MonthGrid',
+                overflow: theme.datepickerMonthsGridOverflow,
+                height: theme.datepickerMonthsGridHeight,
+                gridTemplateColumns: vertical ? '1fr' : 'repeat(' + numberOfMonths + ', 1fr)',
+                gridGap: theme.datepickerMonthsGridGap,
+                pr: rtl ? '1px' : '0',
+                ref: monthGridRef,
+                onMouseLeave: function () {
+                  if (hoveredDate) {
+                    onDateHover(null)
+                  }
+                },
+              },
+              activeMonths.map(function (month) {
+                return React__default.createElement(Month, {
+                  key: 'month-' + month.year + '-' + month.month,
+                  year: month.year,
+                  month: month.month,
+                  firstDayOfWeek: firstDayOfWeek,
+                  dayLabelFormat: dayLabelFormat || dayLabelFormatFn,
+                  weekdayLabelFormat: weekdayLabelFormat || weekdayLabelFormatFn,
+                  monthLabelFormat: monthLabelFormat || monthLabelFormatFn,
+                })
+              }),
+            ),
+          ),
+          React__default.createElement(
+            Flex,
+            {alignItems: 'center'},
+            React__default.createElement(
+              React__default.Fragment,
+              null,
+              showResetDates &&
+                React__default.createElement(
+                  Flex,
+                  {flex: '1', m: theme.datepickerResetDatesWrapperMargin},
+                  React__default.createElement(ResetDates, {
+                    rtl: rtl,
+                    onResetDates: onResetDates,
+                    text: phrases.resetDates,
+                  }),
+                ),
+              React__default.createElement(
+                Box,
+                {
+                  position: theme.datepickerPreviousMonthButtonPosition,
+                  top: theme.datepickerPreviousMonthButtonTop,
+                  left: theme.datepickerPreviousMonthButtonLeft,
+                  right: theme.datepickerPreviousMonthButtonRight,
+                  bottom: theme.datepickerPreviousMonthButtonBottom,
+                },
+                React__default.createElement(NavButton, {
+                  type: 'prev',
+                  onClick: rtl && !vertical ? handleGoToNextMonth : handleGoToPreviousMonth,
+                  vertical: vertical,
+                  rtl: rtl,
+                  ariaLabel: 'Previous month',
+                }),
+              ),
+              React__default.createElement(
+                Box,
+                {
+                  position: theme.datepickerNextMonthButtonPosition,
+                  top: theme.datepickerNextMonthButtonTop,
+                  left: theme.datepickerNextMonthButtonLeft,
+                  right: theme.datepickerNextMonthButtonRight,
+                  bottom: theme.datepickerNextMonthButtonBottom,
+                },
+                React__default.createElement(NavButton, {
+                  type: 'next',
+                  onClick: rtl && !vertical ? handleGoToPreviousMonth : handleGoToNextMonth,
+                  vertical: vertical,
+                  rtl: rtl,
+                  ariaLabel: 'Next month',
+                }),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  )
+}
+var Datepicker$1 = React__default.forwardRef(Datepicker)
+var templateObject_1$c,
+  templateObject_2$7,
+  templateObject_3$3,
+  templateObject_4$1,
+  templateObject_5$1,
+  templateObject_6
+
+var Wrapper$1 = styled__default(Box)(
+  templateObject_2$8 ||
+    (templateObject_2$8 = __makeTemplateObject(['\n  ', '\n  ', '\n'], ['\n  ', '\n  ', '\n'])),
+  zIndex,
+  function (_a) {
+    var rtl = _a.rtl
+    return (
+      rtl &&
+      styled.css(
+        templateObject_1$d ||
+          (templateObject_1$d = __makeTemplateObject(
+            ['\n      direction: rtl;\n    '],
+            ['\n      direction: rtl;\n    '],
+          )),
+      )
+    )
+  },
+)
+var composeInputArrowIconStyles = compose(color, opacity)
+var InputArrowIcon = styled__default(ArrowIcon)(
+  templateObject_4$2 ||
+    (templateObject_4$2 = __makeTemplateObject(['\n  ', '\n  ', '\n'], ['\n  ', '\n  ', '\n'])),
+  composeInputArrowIconStyles,
+  function (_a) {
+    var rtl = _a.rtl
+    return (
+      rtl &&
+      styled.css(
+        templateObject_3$4 ||
+          (templateObject_3$4 = __makeTemplateObject(
+            ['\n      transform: rotate(-90deg);\n    '],
+            ['\n      transform: rotate(-90deg);\n    '],
+          )),
+      )
+    )
+  },
+)
+var composeInputGridStyles = compose(background, border, borderRadius)
+var InputGrid = styled__default(Grid)(
+  templateObject_5$2 || (templateObject_5$2 = __makeTemplateObject(['\n  ', '\n'], ['\n  ', '\n'])),
+  composeInputGridStyles,
+)
+function getPlacement(placement, rtl) {
+  if (placement === 'top' && !rtl) {
+    return {
+      dateRangeDatepickerWrapperTop: 'unset',
+      dateRangeDatepickerWrapperRight: 'unset',
+      dateRangeDatepickerWrapperBottom: '65px',
+      dateRangeDatepickerWrapperLeft: '0',
+    }
+  } else if (placement === 'top' && rtl) {
+    return {
+      dateRangeDatepickerWrapperTop: 'unset',
+      dateRangeDatepickerWrapperRight: '0',
+      dateRangeDatepickerWrapperBottom: '65px',
+      dateRangeDatepickerWrapperLeft: 'unset',
+    }
+  } else if (placement === 'bottom' && rtl) {
+    return {
+      dateRangeDatepickerWrapperTop: 'unset',
+      dateRangeDatepickerWrapperRight: '0',
+      dateRangeDatepickerWrapperBottom: 'unset',
+      dateRangeDatepickerWrapperLeft: 'unset',
+    }
+  }
+  return {
+    dateRangeDatepickerWrapperTop: 'unset',
+    dateRangeDatepickerWrapperRight: 'unset',
+    dateRangeDatepickerWrapperBottom: 'unset',
+    dateRangeDatepickerWrapperLeft: '0',
+  }
+}
+function DateRangeInput(_a) {
+  var startDate = _a.startDate,
+    endDate = _a.endDate,
+    minBookingDate = _a.minBookingDate,
+    maxBookingDate = _a.maxBookingDate,
+    firstDayOfWeek = _a.firstDayOfWeek,
+    onFocusChange = _a.onFocusChange,
+    numberOfMonths = _a.numberOfMonths,
+    focusedInput = _a.focusedInput,
+    onDatesChange = _a.onDatesChange,
+    exactMinBookingDays = _a.exactMinBookingDays,
+    dayLabelFormat = _a.dayLabelFormat,
+    weekdayLabelFormat = _a.weekdayLabelFormat,
+    monthLabelFormat = _a.monthLabelFormat,
+    onDayRender = _a.onDayRender,
+    initialVisibleMonth = _a.initialVisibleMonth,
+    _b = _a.showClose,
+    showClose = _b === void 0 ? true : _b,
+    _c = _a.showSelectedDates,
+    showSelectedDates = _c === void 0 ? true : _c,
+    _d = _a.showResetDates,
+    showResetDates = _d === void 0 ? true : _d,
+    _e = _a.vertical,
+    vertical = _e === void 0 ? false : _e,
+    _f = _a.rtl,
+    rtl = _f === void 0 ? false : _f,
+    _g = _a.isDateBlocked,
+    isDateBlocked =
+      _g === void 0
+        ? function () {
+            return false
+          }
+        : _g,
+    _h = _a.minBookingDays,
+    minBookingDays = _h === void 0 ? 1 : _h,
+    _j = _a.onClose,
+    onClose = _j === void 0 ? function () {} : _j,
+    _k = _a.showStartDateCalendarIcon,
+    showStartDateCalendarIcon = _k === void 0 ? true : _k,
+    _l = _a.showEndDateCalendarIcon,
+    showEndDateCalendarIcon = _l === void 0 ? true : _l,
+    _m = _a.displayFormat,
+    displayFormat = _m === void 0 ? 'MM/dd/yyyy' : _m,
+    _o = _a.phrases,
+    phrases = _o === void 0 ? dateRangeInputPhrases : _o,
+    _p = _a.placement,
+    placement = _p === void 0 ? 'bottom' : _p,
+    _q = _a.startDateInputId,
+    startDateInputId = _q === void 0 ? 'startDate' : _q,
+    _r = _a.endDateInputId,
+    endDateInputId = _r === void 0 ? 'endDate' : _r,
+    _s = _a.unavailableDates,
+    unavailableDates = _s === void 0 ? [] : _s
+  var ref = React.useRef(null)
+  var datepickerWrapperRef = React.useRef(null)
+  var themeContext = React.useContext(styled.ThemeContext)
+  var theme = useThemeProps(
+    __assign(
+      {
+        dateRangeZIndex: null,
+        dateRangeBackground: 'transparent',
+        dateRangeGridTemplateColumns: vertical ? '1fr 24px 1fr' : '194px 39px 194px',
+        dateRangeGridTemplateRows: 'unset',
+        dateRangeBorder: '0',
+        dateRangeBorderRadius: '0',
+        dateRangeArrowIconWidth: '15px',
+        dateRangeArrowIconHeight: '12px',
+        dateRangeArrowIconColor: getThemeProp('graci', globalStyles.colors.graci, themeContext),
+        dateRangeArrowIconOpacity: 1,
+        dateRangeStartDateInputPadding: vertical
+          ? rtl
+            ? '0 32px 0 8px'
+            : '0 8px 0 32px'
+          : '0 44px',
+        dateRangeEndDateInputPadding: vertical ? (rtl ? '0 32px 0 8px' : '0 8px 0 32px') : '0 44px',
+        dateRangeDatepickerWrapperPosition: 'absolute',
+      },
+      getPlacement(placement, rtl),
+    ),
+  )
+  React.useEffect(function () {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('click', onClickOutsideHandler)
+    }
+    return function () {
+      window.removeEventListener('click', onClickOutsideHandler)
+    }
+  })
+  function onClickOutsideHandler(event) {
+    if (
+      focusedInput !== null &&
+      datepickerWrapperRef &&
+      datepickerWrapperRef.current &&
+      // @ts-ignore
+      !datepickerWrapperRef.current.contains(event.target)
+    ) {
+      onFocusChange(null)
+    }
+  }
+  function handleDatepickerClose() {
+    onClose()
+    onFocusChange(null)
+  }
+  function handleInputChange(date) {
+    // @ts-ignore
+    if (ref && ref.current && ref.current.onDateSelect) {
+      // @ts-ignore
+      ref.current.onDateSelect(date)
+    }
+  }
+  return React__default.createElement(
+    styled.ThemeProvider,
+    {
+      theme: function (theme) {
+        return theme || {}
+      },
+    },
+    React__default.createElement(
+      Wrapper$1,
+      {zIndex: theme.dateRangeZIndex, rtl: rtl, position: 'relative', ref: datepickerWrapperRef},
+      React__default.createElement(
+        InputGrid,
+        {
+          'data-testid': 'DateRangeInputGrid',
+          background: theme.dateRangeBackground,
+          gridTemplateColumns: theme.dateRangeGridTemplateColumns,
+          gridTemplateRows: theme.dateRangeGridTemplateRows,
+          border: theme.dateRangeBorder,
+          borderRadius: theme.dateRangeBorderRadius,
+        },
+        React__default.createElement(Input, {
+          id: startDateInputId,
+          ariaLabel: phrases.startDateAriaLabel,
+          placeholder: phrases.startDatePlaceholder,
+          value: getInputValue(startDate, displayFormat, ''),
+          onClick: function () {
+            return onFocusChange(START_DATE)
+          },
+          showCalendarIcon: showStartDateCalendarIcon,
+          vertical: vertical,
+          isActive: focusedInput === START_DATE,
+          padding: theme.dateRangeStartDateInputPadding,
+          rtl: rtl,
+          onChange: handleInputChange,
+          // @ts-ignore
+          dateFormat: displayFormat,
+        }),
+        React__default.createElement(
+          Flex,
+          {alignItems: 'center', justifyContent: 'center'},
+          React__default.createElement(
+            InputArrowIcon,
+            // @ts-ignore
+            {
+              // @ts-ignore
+              width: theme.dateRangeArrowIconWidth,
+              // @ts-ignore
+              height: theme.dateRangeArrowIconHeight,
+              color: theme.dateRangeArrowIconColor,
+              opacity: theme.dateRangeArrowIconOpacity,
+              rtl: rtl,
+            },
+          ),
+        ),
+        React__default.createElement(Input, {
+          id: endDateInputId,
+          ariaLabel: phrases.endDateAriaLabel,
+          placeholder: phrases.endDatePlaceholder,
+          value: getInputValue(endDate, displayFormat, ''),
+          onClick: function () {
+            return onFocusChange(!startDate ? START_DATE : END_DATE)
+          },
+          showCalendarIcon: showEndDateCalendarIcon,
+          vertical: vertical,
+          isActive: focusedInput === END_DATE,
+          padding: theme.dateRangeEndDateInputPadding,
+          rtl: rtl,
+          disableAccessibility: focusedInput === START_DATE,
+          onChange: handleInputChange,
+          // @ts-ignore
+          dateFormat: displayFormat,
+        }),
+      ),
+      React__default.createElement(
+        Box,
+        {
+          position: theme.dateRangeDatepickerWrapperPosition,
+          bottom: theme.dateRangeDatepickerWrapperBottom,
+          left: theme.dateRangeDatepickerWrapperLeft,
+          top: theme.dateRangeDatepickerWrapperTop,
+          right: theme.dateRangeDatepickerWrapperRight,
+        },
+        focusedInput !== null &&
+          React__default.createElement(Datepicker$1, {
+            onClose: handleDatepickerClose,
+            startDate: startDate,
+            endDate: endDate,
+            minBookingDate: minBookingDate,
+            maxBookingDate: maxBookingDate,
+            firstDayOfWeek: firstDayOfWeek,
+            numberOfMonths: numberOfMonths,
+            focusedInput: focusedInput,
+            displayFormat: displayFormat,
+            onDatesChange: onDatesChange,
+            minBookingDays: minBookingDays,
+            isDateBlocked: isDateBlocked,
+            exactMinBookingDays: exactMinBookingDays,
+            showResetDates: showResetDates,
+            vertical: vertical,
+            showSelectedDates: showSelectedDates,
+            showClose: showClose,
+            rtl: rtl,
+            dayLabelFormat: dayLabelFormat,
+            weekdayLabelFormat: weekdayLabelFormat,
+            monthLabelFormat: monthLabelFormat,
+            onDayRender: onDayRender,
+            phrases: phrases,
+            unavailableDates: unavailableDates,
+            ref: ref,
+            initialVisibleMonth: initialVisibleMonth,
+          }),
+      ),
+    ),
+  )
+}
+var templateObject_1$d,
+  templateObject_2$8,
+  templateObject_3$4,
+  templateObject_4$2,
+  templateObject_5$2
+
+var Wrapper$2 = styled__default(Box)(
+  templateObject_2$9 ||
+    (templateObject_2$9 = __makeTemplateObject(['\n  ', '\n  ', '\n'], ['\n  ', '\n  ', '\n'])),
+  zIndex,
+  function (_a) {
+    var rtl = _a.rtl
+    return (
+      rtl &&
+      styled.css(
+        templateObject_1$e ||
+          (templateObject_1$e = __makeTemplateObject(
+            ['\n      direction: rtl;\n    '],
+            ['\n      direction: rtl;\n    '],
+          )),
+      )
+    )
+  },
+)
+function getPlacement$1(placement, rtl) {
+  if (placement === 'top' && !rtl) {
+    return {
+      dateSingleDatepickerWrapperTop: 'unset',
+      dateSingleDatepickerWrapperRight: 'unset',
+      dateSingleDatepickerWrapperBottom: '65px',
+      dateSingleDatepickerWrapperLeft: '0',
+    }
+  } else if (placement === 'top' && rtl) {
+    return {
+      dateSingleDatepickerWrapperTop: 'unset',
+      dateSingleDatepickerWrapperRight: '0',
+      dateSingleDatepickerWrapperBottom: '65px',
+      dateSingleDatepickerWrapperLeft: 'unset',
+    }
+  } else if (placement === 'bottom' && rtl) {
+    return {
+      dateSingleDatepickerWrapperTop: 'unset',
+      dateSingleDatepickerWrapperRight: '0',
+      dateSingleDatepickerWrapperBottom: 'unset',
+      dateSingleDatepickerWrapperLeft: 'unset',
+    }
+  }
+  return {
+    dateSingleDatepickerWrapperTop: 'unset',
+    dateSingleDatepickerWrapperRight: 'unset',
+    dateSingleDatepickerWrapperBottom: 'unset',
+    dateSingleDatepickerWrapperLeft: '0',
+  }
+}
+function DateSingleInput(_a) {
+  var date = _a.date,
+    minBookingDate = _a.minBookingDate,
+    maxBookingDate = _a.maxBookingDate,
+    firstDayOfWeek = _a.firstDayOfWeek,
+    onFocusChange = _a.onFocusChange,
+    showDatepicker = _a.showDatepicker,
+    onDateChange = _a.onDateChange,
+    dayLabelFormat = _a.dayLabelFormat,
+    weekdayLabelFormat = _a.weekdayLabelFormat,
+    monthLabelFormat = _a.monthLabelFormat,
+    onDayRender = _a.onDayRender,
+    initialVisibleMonth = _a.initialVisibleMonth,
+    _b = _a.numberOfMonths,
+    numberOfMonths = _b === void 0 ? 1 : _b,
+    _c = _a.showClose,
+    showClose = _c === void 0 ? true : _c,
+    _d = _a.showResetDate,
+    showResetDate = _d === void 0 ? true : _d,
+    _e = _a.vertical,
+    vertical = _e === void 0 ? false : _e,
+    _f = _a.rtl,
+    rtl = _f === void 0 ? false : _f,
+    _g = _a.isDateBlocked,
+    isDateBlocked =
+      _g === void 0
+        ? function () {
+            return false
+          }
+        : _g,
+    _h = _a.onClose,
+    onClose = _h === void 0 ? function () {} : _h,
+    _j = _a.showCalendarIcon,
+    showCalendarIcon = _j === void 0 ? true : _j,
+    _k = _a.displayFormat,
+    displayFormat = _k === void 0 ? 'MM/dd/yyyy' : _k,
+    _l = _a.phrases,
+    phrases = _l === void 0 ? dateSingleInputPhrases : _l,
+    _m = _a.placement,
+    placement = _m === void 0 ? 'bottom' : _m,
+    _o = _a.inputId,
+    inputId = _o === void 0 ? 'startDate' : _o,
+    _p = _a.unavailableDates,
+    unavailableDates = _p === void 0 ? [] : _p
+  var ref = React.useRef(null)
+  var datepickerWrapperRef = React.useRef(null)
+  var theme = useThemeProps(
+    __assign(
+      {
+        dateSingleZIndex: null,
+        dateSingleInputPadding: vertical ? (rtl ? '0 32px 0 8px' : '0 8px 0 32px') : '0 44px',
+        dateSingleDatepickerWrapperPosition: 'absolute',
+      },
+      getPlacement$1(placement, rtl),
+    ),
+  )
+  React.useEffect(function () {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('click', onClickOutsideHandler)
+    }
+    return function () {
+      window.removeEventListener('click', onClickOutsideHandler)
+    }
+  })
+  function onClickOutsideHandler(event) {
+    if (
+      showDatepicker &&
+      datepickerWrapperRef &&
+      datepickerWrapperRef.current &&
+      // @ts-ignore
+      !datepickerWrapperRef.current.contains(event.target)
+    ) {
+      onFocusChange(false)
+    }
+  }
+  function handleDatepickerClose() {
+    onClose()
+    onFocusChange(false)
+  }
+  function onDatesChange(_a) {
+    var focusedInput = _a.focusedInput,
+      startDate = _a.startDate
+    onDateChange({
+      showDatepicker: focusedInput !== null,
+      date: startDate,
+    })
+  }
+  function handleInputChange(date) {
+    // @ts-ignore
+    if (ref && ref.current && ref.current.onDateSelect) {
+      // @ts-ignore
+      ref.current.onDateSelect(date)
+    }
+  }
+  return React__default.createElement(
+    styled.ThemeProvider,
+    {
+      theme: function (theme) {
+        return theme || {}
+      },
+    },
+    React__default.createElement(
+      Wrapper$2,
+      {zIndex: theme.dateSingleZIndex, rtl: rtl, position: 'relative', ref: datepickerWrapperRef},
+      React__default.createElement(Input, {
+        id: inputId,
+        ariaLabel: phrases.dateAriaLabel,
+        placeholder: phrases.datePlaceholder,
+        value: getInputValue(date, displayFormat, ''),
+        onClick: function () {
+          return onFocusChange(true)
+        },
+        showCalendarIcon: showCalendarIcon,
+        vertical: vertical,
+        isActive: false,
+        padding: theme.dateSingleInputPadding,
+        rtl: rtl,
+        onChange: handleInputChange,
+        // @ts-ignore
+        dateFormat: displayFormat,
+      }),
+      React__default.createElement(
+        Box,
+        {
+          position: theme.dateSingleDatepickerWrapperPosition,
+          bottom: theme.dateSingleDatepickerWrapperBottom,
+          left: theme.dateSingleDatepickerWrapperLeft,
+          top: theme.dateSingleDatepickerWrapperTop,
+          right: theme.dateSingleDatepickerWrapperRight,
+        },
+        showDatepicker &&
+          React__default.createElement(Datepicker$1, {
+            exactMinBookingDays: true,
+            minBookingDays: 1,
+            onClose: handleDatepickerClose,
+            startDate: date,
+            endDate: date,
+            minBookingDate: minBookingDate,
+            maxBookingDate: maxBookingDate,
+            firstDayOfWeek: firstDayOfWeek,
+            numberOfMonths: numberOfMonths,
+            focusedInput: showDatepicker ? START_DATE : null,
+            displayFormat: displayFormat,
+            onDatesChange: onDatesChange,
+            isDateBlocked: isDateBlocked,
+            showResetDates: showResetDate,
+            vertical: vertical,
+            showSelectedDates: false,
+            showClose: showClose,
+            rtl: rtl,
+            dayLabelFormat: dayLabelFormat,
+            weekdayLabelFormat: weekdayLabelFormat,
+            monthLabelFormat: monthLabelFormat,
+            onDayRender: onDayRender,
+            phrases: phrases,
+            ref: ref,
+            unavailableDates: unavailableDates,
+            initialVisibleMonth: initialVisibleMonth,
+          }),
+      ),
+    ),
+  )
+}
+var templateObject_1$e, templateObject_2$9
+
+exports.DateRangeInput = DateRangeInput
+exports.DateSingleInput = DateSingleInput
+exports.Datepicker = Datepicker$1
 exports.END_DATE = END_DATE
 exports.START_DATE = START_DATE
-exports.dayLabelFormat = dayLabelFormatFn
-exports.getCurrentYearMonthAndDate = getCurrentYearMonthAndDate
-exports.getDateMonthAndYear = getDateMonthAndYear
-exports.getDays = getDays
-exports.getInitialMonths = getInitialMonths
-exports.getInputValue = getInputValue
-exports.getWeekdayLabels = getWeekdayLabels
-exports.isDateBlocked = isDateBlocked
-exports.isDateSelected = isDateSelected
-exports.isEndDate = isEndDate
-exports.isFirstOrLastSelectedDate = isFirstOrLastSelectedDate
-exports.isStartDate = isStartDate
-exports.monthLabelFormat = monthLabelFormatFn
-exports.parseDate = parse
-exports.useDatepicker = useDatepicker
-exports.useDay = useDay
-exports.useMonth = useMonth
-exports.weekdayLabelFormat = weekdayLabelFormatFn
+exports.dateRangeInputPhrases = dateRangeInputPhrases
+exports.dateSingleInputPhrases = dateSingleInputPhrases
+exports.datepickerPhrases = datepickerPhrases
 //# sourceMappingURL=index.cjs.js.map

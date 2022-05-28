@@ -5041,227 +5041,6 @@ function startOfWeek(dirtyDate, dirtyOptions) {
   return date
 }
 
-function getWeekdayLabels(_a) {
-  var _b = _a === void 0 ? {} : _a,
-    _c = _b.firstDayOfWeek,
-    firstDayOfWeek = _c === void 0 ? 1 : _c,
-    _d = _b.weekdayLabelFormat,
-    weekdayLabelFormat =
-      _d === void 0
-        ? function (date) {
-            return format(date, 'iiiiii')
-          }
-        : _d
-  var now = new Date()
-  var arr = eachDayOfInterval({
-    start: addDays(startOfWeek(now), firstDayOfWeek),
-    end: addDays(endOfWeek(now), firstDayOfWeek),
-  })
-  return arr.reduce(function (array, date) {
-    // @ts-ignore
-    array.push(weekdayLabelFormat(date))
-    return array
-  }, [])
-}
-function getDays(_a) {
-  var year = _a.year,
-    month = _a.month,
-    _b = _a.firstDayOfWeek,
-    firstDayOfWeek = _b === void 0 ? 1 : _b,
-    _c = _a.dayLabelFormat,
-    dayLabelFormat =
-      _c === void 0
-        ? function (date) {
-            return format(date, 'dd')
-          }
-        : _c
-  var date = new Date(year, month)
-  var monthStart = startOfMonth(date)
-  var monthStartDay = getDay(monthStart)
-  var monthEnd = endOfMonth(date)
-  var prevMonthDays = Array.from(
-    Array(
-      monthStartDay >= firstDayOfWeek
-        ? monthStartDay - firstDayOfWeek
-        : 6 - firstDayOfWeek + monthStartDay + 1,
-    ).keys(),
-  ).fill(0)
-  var days = eachDayOfInterval({start: monthStart, end: monthEnd}).map(function (date) {
-    return {
-      date: date,
-      dayLabel: dayLabelFormat(date),
-    }
-  })
-  return __spreadArrays(prevMonthDays, days)
-}
-
-var dayLabelFormatFn = function (date) {
-  return format(date, 'dd')
-}
-var weekdayLabelFormatFn = function (date) {
-  return format(date, 'eeeeee')
-}
-var monthLabelFormatFn = function (date) {
-  return format(date, 'MMMM yyyy')
-}
-function useMonth(_a) {
-  var year = _a.year,
-    month = _a.month,
-    _b = _a.firstDayOfWeek,
-    firstDayOfWeek = _b === void 0 ? 1 : _b,
-    _c = _a.dayLabelFormat,
-    dayLabelFormat = _c === void 0 ? dayLabelFormatFn : _c,
-    _d = _a.weekdayLabelFormat,
-    weekdayLabelFormat = _d === void 0 ? weekdayLabelFormatFn : _d,
-    _e = _a.monthLabelFormat,
-    monthLabelFormat = _e === void 0 ? monthLabelFormatFn : _e
-  var days = useMemo(
-    function () {
-      return getDays({
-        year: year,
-        month: month,
-        firstDayOfWeek: firstDayOfWeek,
-        dayLabelFormat: dayLabelFormat,
-      })
-    },
-    [year, month, firstDayOfWeek, dayLabelFormat],
-  )
-  var weekdayLabels = useMemo(
-    function () {
-      return getWeekdayLabels({
-        firstDayOfWeek: firstDayOfWeek,
-        weekdayLabelFormat: weekdayLabelFormat,
-      })
-    },
-    [firstDayOfWeek, weekdayLabelFormat],
-  )
-  return {
-    days: days,
-    weekdayLabels: weekdayLabels,
-    monthLabel: monthLabelFormat(new Date(year, month)),
-  }
-}
-
-/**
- * @name isBefore
- * @category Common Helpers
- * @summary Is the first date before the second one?
- *
- * @description
- * Is the first date before the second one?
- *
- * ### v2.0.0 breaking changes:
- *
- * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
- *
- * @param {Date|Number} date - the date that should be before the other one to return true
- * @param {Date|Number} dateToCompare - the date to compare with
- * @returns {Boolean} the first date is before the second date
- * @throws {TypeError} 2 arguments required
- *
- * @example
- * // Is 10 July 1989 before 11 February 1987?
- * var result = isBefore(new Date(1989, 6, 10), new Date(1987, 1, 11))
- * //=> false
- */
-
-function isBefore(dirtyDate, dirtyDateToCompare) {
-  requiredArgs(2, arguments)
-  var date = toDate(dirtyDate)
-  var dateToCompare = toDate(dirtyDateToCompare)
-  return date.getTime() < dateToCompare.getTime()
-}
-
-/**
- * @name isAfter
- * @category Common Helpers
- * @summary Is the first date after the second one?
- *
- * @description
- * Is the first date after the second one?
- *
- * ### v2.0.0 breaking changes:
- *
- * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
- *
- * @param {Date|Number} date - the date that should be after the other one to return true
- * @param {Date|Number} dateToCompare - the date to compare with
- * @returns {Boolean} the first date is after the second date
- * @throws {TypeError} 2 arguments required
- *
- * @example
- * // Is 10 July 1989 after 11 February 1987?
- * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
- * //=> true
- */
-
-function isAfter(dirtyDate, dirtyDateToCompare) {
-  requiredArgs(2, arguments)
-  var date = toDate(dirtyDate)
-  var dateToCompare = toDate(dirtyDateToCompare)
-  return date.getTime() > dateToCompare.getTime()
-}
-
-/**
- * @name startOfDay
- * @category Day Helpers
- * @summary Return the start of a day for the given date.
- *
- * @description
- * Return the start of a day for the given date.
- * The result will be in the local timezone.
- *
- * ### v2.0.0 breaking changes:
- *
- * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
- *
- * @param {Date|Number} date - the original date
- * @returns {Date} the start of a day
- * @throws {TypeError} 1 argument required
- *
- * @example
- * // The start of a day for 2 September 2014 11:55:00:
- * var result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
- * //=> Tue Sep 02 2014 00:00:00
- */
-
-function startOfDay(dirtyDate) {
-  requiredArgs(1, arguments)
-  var date = toDate(dirtyDate)
-  date.setHours(0, 0, 0, 0)
-  return date
-}
-
-/**
- * @name isSameDay
- * @category Day Helpers
- * @summary Are the given dates in the same day?
- *
- * @description
- * Are the given dates in the same day?
- *
- * ### v2.0.0 breaking changes:
- *
- * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
- *
- * @param {Date|Number} dateLeft - the first date to check
- * @param {Date|Number} dateRight - the second date to check
- * @returns {Boolean} the dates are in the same day
- * @throws {TypeError} 2 arguments required
- *
- * @example
- * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
- * var result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
- * //=> true
- */
-
-function isSameDay(dirtyDateLeft, dirtyDateRight) {
-  requiredArgs(2, arguments)
-  var dateLeftStartOfDay = startOfDay(dirtyDateLeft)
-  var dateRightStartOfDay = startOfDay(dirtyDateRight)
-  return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime()
-}
-
 /**
  * @name isWithinInterval
  * @category Interval Helpers
@@ -5348,6 +5127,126 @@ function isWithinInterval(dirtyDate, dirtyInterval) {
   }
 
   return time >= startTime && time <= endTime
+}
+
+/**
+ * @name startOfDay
+ * @category Day Helpers
+ * @summary Return the start of a day for the given date.
+ *
+ * @description
+ * Return the start of a day for the given date.
+ * The result will be in the local timezone.
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the original date
+ * @returns {Date} the start of a day
+ * @throws {TypeError} 1 argument required
+ *
+ * @example
+ * // The start of a day for 2 September 2014 11:55:00:
+ * var result = startOfDay(new Date(2014, 8, 2, 11, 55, 0))
+ * //=> Tue Sep 02 2014 00:00:00
+ */
+
+function startOfDay(dirtyDate) {
+  requiredArgs(1, arguments)
+  var date = toDate(dirtyDate)
+  date.setHours(0, 0, 0, 0)
+  return date
+}
+
+/**
+ * @name isSameDay
+ * @category Day Helpers
+ * @summary Are the given dates in the same day?
+ *
+ * @description
+ * Are the given dates in the same day?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} dateLeft - the first date to check
+ * @param {Date|Number} dateRight - the second date to check
+ * @returns {Boolean} the dates are in the same day
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Are 4 September 06:00:00 and 4 September 18:00:00 in the same day?
+ * var result = isSameDay(new Date(2014, 8, 4, 6, 0), new Date(2014, 8, 4, 18, 0))
+ * //=> true
+ */
+
+function isSameDay(dirtyDateLeft, dirtyDateRight) {
+  requiredArgs(2, arguments)
+  var dateLeftStartOfDay = startOfDay(dirtyDateLeft)
+  var dateRightStartOfDay = startOfDay(dirtyDateRight)
+  return dateLeftStartOfDay.getTime() === dateRightStartOfDay.getTime()
+}
+
+/**
+ * @name isBefore
+ * @category Common Helpers
+ * @summary Is the first date before the second one?
+ *
+ * @description
+ * Is the first date before the second one?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date that should be before the other one to return true
+ * @param {Date|Number} dateToCompare - the date to compare with
+ * @returns {Boolean} the first date is before the second date
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Is 10 July 1989 before 11 February 1987?
+ * var result = isBefore(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> false
+ */
+
+function isBefore(dirtyDate, dirtyDateToCompare) {
+  requiredArgs(2, arguments)
+  var date = toDate(dirtyDate)
+  var dateToCompare = toDate(dirtyDateToCompare)
+  return date.getTime() < dateToCompare.getTime()
+}
+
+/**
+ * @name isAfter
+ * @category Common Helpers
+ * @summary Is the first date after the second one?
+ *
+ * @description
+ * Is the first date after the second one?
+ *
+ * ### v2.0.0 breaking changes:
+ *
+ * - [Changes that are common for the whole library](https://github.com/date-fns/date-fns/blob/master/docs/upgradeGuide.md#Common-Changes).
+ *
+ * @param {Date|Number} date - the date that should be after the other one to return true
+ * @param {Date|Number} dateToCompare - the date to compare with
+ * @returns {Boolean} the first date is after the second date
+ * @throws {TypeError} 2 arguments required
+ *
+ * @example
+ * // Is 10 July 1989 after 11 February 1987?
+ * var result = isAfter(new Date(1989, 6, 10), new Date(1987, 1, 11))
+ * //=> true
+ */
+
+function isAfter(dirtyDate, dirtyDateToCompare) {
+  requiredArgs(2, arguments)
+  var date = toDate(dirtyDate)
+  var dateToCompare = toDate(dirtyDateToCompare)
+  return date.getTime() > dateToCompare.getTime()
 }
 
 /**
@@ -5563,10 +5462,11 @@ var isInUnavailableDates = function (unavailableDates, date) {
     return isSameDay(date, _date)
   })
 }
+function getDateInterval(dateA, dateB) {
+  return compareAsc(dateA, dateB) > 0 ? {start: dateB, end: dateA} : {start: dateA, end: dateB}
+}
 function isDateInInterval(date, dateA, dateB) {
-  var interval =
-    compareAsc(dateA, dateB) > 0 ? {start: dateB, end: dateA} : {start: dateA, end: dateB}
-  return isWithinInterval(date, interval)
+  return isWithinInterval(date, getDateInterval(dateA, dateB))
 }
 function isDateSelected(date, startDate, endDate) {
   if (startDate && endDate) {
@@ -5703,17 +5603,17 @@ function canSelectRange(_a) {
       isStartDateBeforeOrEqualMaxDate) ||
     (startDate && minBookingDays > 0 && exactMinBookingDays && !minBookingDate && !maxBookingDate)
   ) {
-    return !eachDayOfInterval({start: startDate, end: addDays(startDate, minBookingDays - 1)}).some(
-      function (d) {
-        return isDateBlocked(d)
-      },
-    )
+    return !eachDayOfInterval(
+      getDateInterval(startDate, addDays(startDate, minBookingDays - 1)),
+    ).some(function (d) {
+      return isDateBlocked(d)
+    })
   } else if (startDate && endDate && !exactMinBookingDays) {
     var minBookingDaysDate = addDays(startDate, minBookingDays - 1)
     if (isBefore(endDate, minBookingDaysDate)) {
       return false
     }
-    return !eachDayOfInterval({start: startDate, end: endDate}).some(function (d) {
+    return !eachDayOfInterval(getDateInterval(startDate, endDate)).some(function (d) {
       return isDateBlocked(d)
     })
   }
@@ -5734,10 +5634,9 @@ function isDateHovered(_a) {
     exactMinBookingDays &&
     isDateInInterval(date, hoveredDate, addDays(hoveredDate, minBookingDays - 1))
   ) {
-    return !eachDayOfInterval({
-      start: hoveredDate,
-      end: addDays(hoveredDate, minBookingDays - 1),
-    }).some(function (d) {
+    return !eachDayOfInterval(
+      getDateInterval(hoveredDate, addDays(hoveredDate, minBookingDays - 1)),
+    ).some(function (d) {
       return isDateBlocked(d)
     })
   } else if (
@@ -5749,24 +5648,126 @@ function isDateHovered(_a) {
     isSameDay(startDate, hoveredDate) &&
     minBookingDays > 1
   ) {
-    return !eachDayOfInterval({start: startDate, end: addDays(startDate, minBookingDays - 1)}).some(
-      function (d) {
-        return isDateBlocked(d)
-      },
-    )
+    return !eachDayOfInterval(
+      getDateInterval(startDate, addDays(startDate, minBookingDays - 1)),
+    ).some(function (d) {
+      return isDateBlocked(d)
+    })
   } else if (
     // normal
     startDate &&
     !endDate &&
     hoveredDate &&
-    !isBefore(hoveredDate, startDate) &&
     isDateInInterval(date, startDate, hoveredDate)
   ) {
-    return !eachDayOfInterval({start: startDate, end: hoveredDate}).some(function (d) {
+    return !eachDayOfInterval(getDateInterval(startDate, hoveredDate)).some(function (d) {
       return isDateBlocked(d)
     })
   }
   return false
+}
+
+function getWeekdayLabels(_a) {
+  var _b = _a === void 0 ? {} : _a,
+    _c = _b.firstDayOfWeek,
+    firstDayOfWeek = _c === void 0 ? 1 : _c,
+    _d = _b.weekdayLabelFormat,
+    weekdayLabelFormat =
+      _d === void 0
+        ? function (date) {
+            return format(date, 'iiiiii')
+          }
+        : _d
+  var now = new Date()
+  var arr = eachDayOfInterval(
+    getDateInterval(
+      addDays(startOfWeek(now), firstDayOfWeek),
+      addDays(endOfWeek(now), firstDayOfWeek),
+    ),
+  )
+  return arr.reduce(function (array, date) {
+    // @ts-ignore
+    array.push(weekdayLabelFormat(date))
+    return array
+  }, [])
+}
+function getDays(_a) {
+  var year = _a.year,
+    month = _a.month,
+    _b = _a.firstDayOfWeek,
+    firstDayOfWeek = _b === void 0 ? 1 : _b,
+    _c = _a.dayLabelFormat,
+    dayLabelFormat =
+      _c === void 0
+        ? function (date) {
+            return format(date, 'dd')
+          }
+        : _c
+  var date = new Date(year, month)
+  var monthStart = startOfMonth(date)
+  var monthStartDay = getDay(monthStart)
+  var monthEnd = endOfMonth(date)
+  var prevMonthDays = Array.from(
+    Array(
+      monthStartDay >= firstDayOfWeek
+        ? monthStartDay - firstDayOfWeek
+        : 6 - firstDayOfWeek + monthStartDay + 1,
+    ).keys(),
+  ).fill(0)
+  var days = eachDayOfInterval(getDateInterval(monthStart, monthEnd)).map(function (date) {
+    return {
+      date: date,
+      dayLabel: dayLabelFormat(date),
+    }
+  })
+  return __spreadArrays(prevMonthDays, days)
+}
+
+var dayLabelFormatFn = function (date) {
+  return format(date, 'dd')
+}
+var weekdayLabelFormatFn = function (date) {
+  return format(date, 'eeeeee')
+}
+var monthLabelFormatFn = function (date) {
+  return format(date, 'MMMM yyyy')
+}
+function useMonth(_a) {
+  var year = _a.year,
+    month = _a.month,
+    _b = _a.firstDayOfWeek,
+    firstDayOfWeek = _b === void 0 ? 1 : _b,
+    _c = _a.dayLabelFormat,
+    dayLabelFormat = _c === void 0 ? dayLabelFormatFn : _c,
+    _d = _a.weekdayLabelFormat,
+    weekdayLabelFormat = _d === void 0 ? weekdayLabelFormatFn : _d,
+    _e = _a.monthLabelFormat,
+    monthLabelFormat = _e === void 0 ? monthLabelFormatFn : _e
+  var days = useMemo(
+    function () {
+      return getDays({
+        year: year,
+        month: month,
+        firstDayOfWeek: firstDayOfWeek,
+        dayLabelFormat: dayLabelFormat,
+      })
+    },
+    [year, month, firstDayOfWeek, dayLabelFormat],
+  )
+  var weekdayLabels = useMemo(
+    function () {
+      return getWeekdayLabels({
+        firstDayOfWeek: firstDayOfWeek,
+        weekdayLabelFormat: weekdayLabelFormat,
+      })
+    },
+    [firstDayOfWeek, weekdayLabelFormat],
+  )
+  return {
+    days: days,
+    weekdayLabels: weekdayLabels,
+    monthLabel: monthLabelFormat(new Date(year, month)),
+  }
 }
 
 var START_DATE = 'startDate'

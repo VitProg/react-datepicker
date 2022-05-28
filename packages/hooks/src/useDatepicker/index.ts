@@ -22,6 +22,9 @@ import {
   MonthType,
   canSelectRange,
   isDateHovered,
+  isDateInInterval,
+  getDateInterval,
+  isInUnavailableDates,
 } from './useDatepicker.utils'
 
 export {
@@ -46,4 +49,7 @@ export {
   FocusedInput,
   FirstDayOfWeek,
   OnDatesChangeProps,
+  isDateInInterval,
+  getDateInterval,
+  isInUnavailableDates,
 }
