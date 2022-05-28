@@ -6,6 +6,7 @@ import format from 'date-fns/format'
 import getDay from 'date-fns/getDay'
 import startOfMonth from 'date-fns/startOfMonth'
 import startOfWeek from 'date-fns/startOfWeek'
+import {getDateInterval} from '../useDatepicker/useDatepicker.utils'
 
 type FirstDayOfWeek = 0 | 1 | 2 | 3 | 4 | 5 | 6
 export interface GetWeekdayLabelsProps {
@@ -18,10 +19,12 @@ export function getWeekdayLabels({
   weekdayLabelFormat = (date: Date) => format(date, 'iiiiii'),
 }: GetWeekdayLabelsProps = {}) {
   const now = new Date()
-  const arr = eachDay({
-    start: addDays(startOfWeek(now), firstDayOfWeek),
-    end: addDays(endOfWeek(now), firstDayOfWeek),
-  })
+  const arr = eachDay(
+    getDateInterval(
+      addDays(startOfWeek(now), firstDayOfWeek),
+      addDays(endOfWeek(now), firstDayOfWeek),
+    ),
+  )
   return arr.reduce((array, date) => {
     // @ts-ignore
     array.push(weekdayLabelFormat(date))
@@ -56,7 +59,7 @@ export function getDays({
         : 6 - firstDayOfWeek + monthStartDay + 1,
     ).keys(),
   ).fill(0)
-  const days = eachDay({start: monthStart, end: monthEnd}).map(date => ({
+  const days = eachDay(getDateInterval(monthStart, monthEnd)).map(date => ({
     date,
     dayLabel: dayLabelFormat(date),
   }))
